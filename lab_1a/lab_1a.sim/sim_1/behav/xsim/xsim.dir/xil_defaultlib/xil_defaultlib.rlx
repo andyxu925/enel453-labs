@@ -1,0 +1,8 @@
+0.7
+2020.2
+May 22 2025
+00:13:55
+C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/lab_1a.sim/sim_1/behav/xsim/glbl.v,1741209010,verilog,,,,glbl,,uvm,,,,,,
+C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/lab_1a_top_level.sv,1788543334,systemVerilog,,C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/switch_logic.sv,,lab_1a_top_level,,uvm,../../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/lab_1a_top_level_tb.sv,1788543334,systemVerilog,,,,lab_1a_top_level_tb,,uvm,../../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/switch_logic.sv,1789147808,systemVerilog,,C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_1a/lab_1a_top_level_tb.sv,,switch_logic,,uvm,../../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
