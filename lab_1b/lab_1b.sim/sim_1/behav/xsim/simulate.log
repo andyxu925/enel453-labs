@@ -1,8 +1,0 @@
-Time resolution is 1 ps
-Time = 0: switches_inputs = xxxxxxxxxxxxxxxx, led = xxxxxxxxxxxxxxxx
-Time = 20000: switches_inputs = 0000000000000000, led = 0000000000000000
-Time = 1000020000: switches_inputs = 1111111111111111, led = 1111111111111111
-Time = 2000020000: switches_inputs = 0101010101010101, led = 0101010101010101
-Time = 3000020000: switches_inputs = 1010101010101010, led = 1010101010101010
-Time = 4000020000: switches_inputs = 1100110011001100, led = 1100110011001100
-Time = 5000020000: switches_inputs = 0011001100110011, led = 0011001100110011
