@@ -66,10 +66,10 @@ module seven_segment_decoder (
             4'b1001: decoded_bits = 7'b1111011; // 9
             4'b1010: decoded_bits = 7'b1110111; // A
             4'b1011: decoded_bits = 7'b0011111; // B
-            4'b1100: decoded_bits = 7'b1000111; // C
+            4'b1100: decoded_bits = 7'b1001110; // C
             4'b1101: decoded_bits = 7'b0111101; // D
             4'b1110: decoded_bits = 7'b1001111; // E
-            4'b1111: decoded_bits = 7'b1000011; // F
+            4'b1111: decoded_bits = 7'b1000111; // F
 // Students: fill in the remaining rows for this case statement,
 // to account for the hexademcial digits A, B, C, D, E, and F
 
