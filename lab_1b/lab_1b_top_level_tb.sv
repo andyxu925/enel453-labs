@@ -10,7 +10,7 @@ module lab_1b_top_level_tb();
     logic reset;
     logic [15:0] switches_inputs;
 
-    logic CA, CB, CC, CD, CE, CF, DP;
+    logic CA, CB, CC, CD, CE, CF, CG, DP;
     logic AN1, AN2, AN3, AN4;
 
     logic [15:0] led;
@@ -20,7 +20,7 @@ module lab_1b_top_level_tb();
         .clk(clk),
         .reset(reset),
         .switches_inputs(switches_inputs),
-        .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .DP(DP),
+        .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG), .DP(DP),
         .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4),
         .led(led)
     );
