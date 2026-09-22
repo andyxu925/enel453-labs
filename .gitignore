@@ -4,3 +4,12 @@ lab_**.ip_user_files
 lab_**.runs
 lab_**.sim
 lab_**.srcs
+lab_**.xpr
+
+lab_*.cache
+lab_*.hw
+lab_*.ip_user_files
+lab_*.runs
+lab_*.sim
+lab_*.srcs
+lab_*.xpr
