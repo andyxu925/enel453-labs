@@ -10,15 +10,23 @@ module lab_2_top_level (
     // Internal signal declarations
 
     logic [15:0] switches_outputs;
+    logic [15:0] bcd_out;
     
     // Instantiate components
+    bin_to_bcd BIN_TO_BCD(
+        .clk(       clk),
+        .reset(     reset),
+        .bin_in(    switches_inputs),
+        .bcd_out(   bcd_out)
+    );
+
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk(       clk),
         .reset(     reset),
-        .sec_dig1(  switches_inputs[3:0]),
-        .sec_dig2(  switches_inputs[7:4]),
-        .min_dig1(  switches_inputs[11:8]),
-        .min_dig2(  switches_inputs[15:12]),
+        .sec_dig1(  bcd_out[3:0]),
+        .sec_dig2(  bcd_out[7:4]),
+        .min_dig1(  bcd_out[11:8]),
+        .min_dig2(  bcd_out[15:12]),
         .CA(        CA),
         .CB(        CB),
         .CC(        CC),
