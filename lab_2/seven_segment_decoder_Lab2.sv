@@ -63,7 +63,6 @@ module seven_segment_decoder (
             4'b0111: decoded_bits = 7'b1110000; // 7
             4'b1000: decoded_bits = 7'b1111111; // 8
             4'b1001: decoded_bits = 7'b1111011; // 9
-            4'b1001: decoded_bits = 7'b1111011; // 9
             4'b1010: decoded_bits = 7'b1110111; // A
             4'b1011: decoded_bits = 7'b0011111; // B
             4'b1100: decoded_bits = 7'b1001110; // C
