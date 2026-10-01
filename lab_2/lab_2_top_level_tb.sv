@@ -8,6 +8,7 @@ module lab_2_top_level_tb();
     // Signals
     logic clk;
     logic reset;
+    logic hex_bcd_sel;
     logic [15:0] switches_inputs;
 
     logic CA, CB, CC, CD, CE, CF, CG, DP;
@@ -19,6 +20,7 @@ module lab_2_top_level_tb();
     lab_2_top_level uut (
         .clk(clk),
         .reset(reset),
+        .hex_bcd_sel(hex_bcd_sel),
         .switches_inputs(switches_inputs),
         .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG), .DP(DP),
         .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4),
@@ -35,10 +37,13 @@ module lab_2_top_level_tb();
 
     // Test stimulus
     initial begin
+        #100; // GSR
         // Initialize inputs
         reset = 1; #CLK_PERIOD;
         reset = 0; #CLK_PERIOD;
 
+        // Test HEX output
+        hex_bcd_sel = 0; #CLK_PERIOD;
         // Test case 1:
         switches_inputs = 16'b0000_0000_0000_0000; #(100000 * CLK_PERIOD);
 
@@ -56,6 +61,34 @@ module lab_2_top_level_tb();
 
         // Test case 5:
         switches_inputs = 16'b0011_0011_0011_0011; #(100000 * CLK_PERIOD);
+        
+        // To match BCD test cases
+        switches_inputs = 16'h00a5; #(100000 * CLK_PERIOD);
+        switches_inputs = 16'h005a; #(100000 * CLK_PERIOD);
+
+        // Test BCD output
+        hex_bcd_sel = 1; #CLK_PERIOD;
+        // Test case 1:
+        switches_inputs = 16'b0000_0000_0000_0000; #(100000 * CLK_PERIOD);
+
+        // Test case 2:
+        switches_inputs = 16'b1111_1111_1111_1111; #(100000 * CLK_PERIOD);
+
+        // Test case 2:
+        switches_inputs = 16'b0101_0101_0101_0101; #(100000 * CLK_PERIOD);
+
+        // Test case 3:
+        switches_inputs = 16'b1010_1010_1010_1010; #(100000 * CLK_PERIOD);
+
+        // Test case 4:
+        switches_inputs = 16'b1100_1100_1100_1100; #(100000 * CLK_PERIOD);
+
+        // Test case 5:
+        switches_inputs = 16'b0011_0011_0011_0011; #(100000 * CLK_PERIOD);
+        
+        // All previous test cases execpt for 1 overflow for BCD; these are additional that do not
+        switches_inputs = 16'h00a5; #(100000 * CLK_PERIOD);
+        switches_inputs = 16'h005a; #(100000 * CLK_PERIOD);
 
         // End simulation
         #(500000 * CLK_PERIOD);
@@ -64,7 +97,7 @@ module lab_2_top_level_tb();
 
     // Optional: Monitor changes
     initial begin
-        $monitor("Time = %0t: switches_inputs = %b, led = %b", 
+        $monitor("Time = %0t: switches_inputs = %b, led = %b",
                  $time, switches_inputs, led);
     end
 
