@@ -2,9 +2,9 @@
 // Module: seven_segment_display_subsystem
 //
 // Description:
-// This module integrates the digit_multiplexor, seven_segment_digit_selector, 
-// and seven_segment_decoder into a single subsystem to drive a 4-digit 
-// 7-segment display. It is designed to interface with a top-level module like 
+// This module integrates the digit_multiplexor, seven_segment_digit_selector,
+// and seven_segment_decoder into a single subsystem to drive a 4-digit
+// 7-segment display. It is designed to interface with a top-level module like
 // lab_1b_top_level and enables hierarchical design.
 //
 // Inputs:
@@ -26,6 +26,7 @@
 module seven_segment_display_subsystem (
     input  logic        clk,
     input  logic        reset,
+    input  logic        overflow,
     input  logic [3:0]  sec_dig1, // seconds digit (units)
     input  logic [3:0]  sec_dig2, // tens of seconds
     input  logic [3:0]  min_dig1, // minutes digit (units)
@@ -39,6 +40,7 @@ module seven_segment_display_subsystem (
     logic [3:0] digit_select;
     logic [3:0] an_outputs;
     logic       in_DP, out_DP;
+    logic       CA_int, CB_int, CC_int, CD_int, CE_int, CF_int, CG_int;
 
     // Instantiate digit multiplexor
     digit_multiplexor DIGIT_MUX (
@@ -62,7 +64,7 @@ module seven_segment_display_subsystem (
     seven_segment_decoder SEG_DECODER (
         .data( digit_to_display), // Input: 4-bit BCD digit to display
         .dp_in( in_DP),           // Input: Decimal point control
-        .CA( CA), .CB( CB), .CC( CC), .CD( CD), .CE( CE), .CF( CF), .CG( CG), // Segment outputs (active-low)
+        .CA( CA_int), .CB( CB_int), .CC( CC_int), .CD( CD_int), .CE( CE_int), .CF( CF_int), .CG( CG_int), // Segment outputs (active-low)
         .DP( out_DP)              // Decimal point output (active-low)
     );
 
@@ -75,5 +77,35 @@ module seven_segment_display_subsystem (
     // Control the decimal point: You can modify `in_DP` assignment as per the design
     assign in_DP = 0;  // No decimal point by default, modify as needed
     assign DP = out_DP;  // Pass the decimal point signal from the decoder
+
+    always_comb begin
+        CA = CA_int;
+        CB = CB_int;
+        CC = CC_int;
+        CD = CD_int;
+        CE = CE_int;
+        CF = CF_int;
+        CG = CG_int;
+
+        if (overflow) begin
+            case (digit_select)
+                4'b0001: begin
+                    {CA,CB,CC,CD,CE,CF,CG} = 7'b1111111;
+                end
+                4'b0010: begin
+                    {CA,CB,CC,CD,CE,CF,CG} = 7'b1111010;
+                end
+                4'b0100: begin
+                    {CA,CB,CC,CD,CE,CF,CG} = 7'b1111010;
+                end
+                4'b1000: begin
+                    {CA,CB,CC,CD,CE,CF,CG} = 7'b0110000;
+                end
+                default: begin
+                    {CA,CB,CC,CD,CE,CF,CG} = 7'b1111111;
+                end
+            endcase
+        end
+    end
 
 endmodule

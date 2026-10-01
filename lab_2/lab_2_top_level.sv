@@ -13,6 +13,7 @@ module lab_2_top_level (
     logic [15:0] switches_outputs;
     logic [15:0] bcd_out;
     logic [15:0] hex_bcd_out;
+    logic        overflow;
     
     // Instantiate components
     bin_to_bcd BIN_TO_BCD(
@@ -23,15 +24,17 @@ module lab_2_top_level (
     );
 
     hex_bcd_mux HEX_BCD_MUX(
-        .hex(   switches_inputs),
-        .bcd(   bcd_out),
-        .sel(   hex_bcd_sel),
-        .out(   hex_bcd_out)
+        .hex(       switches_inputs),
+        .bcd(       bcd_out),
+        .sel(       hex_bcd_sel),
+        .out(       hex_bcd_out),
+        .overflow(  overflow)
     );
 
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk(       clk),
         .reset(     reset),
+        .overflow(  overflow),
         .sec_dig1(  hex_bcd_out[3:0]),
         .sec_dig2(  hex_bcd_out[7:4]),
         .min_dig1(  hex_bcd_out[11:8]),
