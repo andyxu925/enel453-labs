@@ -13,3 +13,5 @@ lab_*.runs
 lab_*.sim
 lab_*.srcs
 lab_*.xpr
+
+*.zip
