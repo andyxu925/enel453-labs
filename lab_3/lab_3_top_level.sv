@@ -40,7 +40,7 @@ module lab_3_top_level (
         .ena(       reg_ena),
         .in(        switches_inputs),
         .out(       reg_out)
-    )
+    );
 
 
     mux_2 MUX_2(
@@ -48,7 +48,7 @@ module lab_3_top_level (
         .in_2(  reg_out),
         .sel(   sw_reg_sel),
         .out(   mux_out)
-    )
+    );
 
 
     bin_to_bcd BIN_TO_BCD(
