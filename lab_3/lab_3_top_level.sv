@@ -4,7 +4,6 @@ module lab_3_top_level (
 
     input  logic        sw_reg_sel,
 
-    input  logic        reg_reset,
     input  logic        reg_ena,
 
     input  logic        hex_bcd_sel, // top pushbutton
@@ -36,7 +35,7 @@ module lab_3_top_level (
     // Instantiate components
     reg_16_bit REG_16_BIT(
         .clk(       clk),
-        .reset(     reg_reset),
+        .reset(     reset),
         .ena(       reg_ena),
         .in(        switches_inputs),
         .out(       reg_out)
