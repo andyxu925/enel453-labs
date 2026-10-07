@@ -17,6 +17,11 @@ module lab_3_top_level (
 
 
     // Internal signal declarations
+    logic [15:0] sw_sync;
+
+    logic sw_reg_sel_db;
+    logic hex_bcd_sel_db;
+    logic reg_ena_db;
 
     logic [15:0] reg_out;
 
@@ -33,19 +38,51 @@ module lab_3_top_level (
 
 
     // Instantiate components
+    synchronizer SYNCHRONIZER(
+        .clk(   clk),
+        .reset( reset),
+        .in(    switches_outputs),
+        .out(   sw_sync)
+    );
+
+
+    debounce DEBOUNCE_SW_REG_SEL(
+        .clk(       clk),
+        .reset(     reset),
+        .button(    sw_reg_sel),
+        .result(    sw_reg_sel_db)
+    );
+
+
+    debounce DEBOUNCE_HEX_BCD_SEL(
+        .clk(       clk),
+        .reset(     reset),
+        .button(    hex_bcd_sel),
+        .result(    hex_bcd_sel_db)
+    );
+
+
+    debounce DEBOUNCE_REG_ENA(
+        .clk(       clk),
+        .reset(     reset),
+        .button(    reg_ena),
+        .result(    reg_ena_db)
+    );
+
+
     reg_16_bit REG_16_BIT(
         .clk(       clk),
         .reset(     reset),
-        .ena(       reg_ena),
-        .in(        switches_inputs),
+        .ena(       reg_ena_db),
+        .in(        sw_sync),
         .out(       reg_out)
     );
 
 
     mux_2 MUX_2(
-        .in_1(  switches_inputs),
+        .in_1(  sw_sync),
         .in_2(  reg_out),
-        .sel(   sw_reg_sel),
+        .sel(   sw_reg_sel_db),
         .out(   mux_out)
     );
 
@@ -61,7 +98,7 @@ module lab_3_top_level (
     hex_bcd_mux HEX_BCD_MUX(
         .hex(       mux_out),
         .bcd(       bcd_out),
-        .sel(       hex_bcd_sel),
+        .sel(       hex_bcd_sel_db),
         .out(       hex_bcd_out),
         .overflow(  overflow)
     );
@@ -96,6 +133,6 @@ module lab_3_top_level (
     );
 
 
-    assign led = switches_outputs;
+    assign led = sw_sync;
 
 endmodule
