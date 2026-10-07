@@ -10,7 +10,7 @@ module reg_16_bit_tb();
     logic [15:0] in;
     logic [15:0] out;
 
-    reg_16_bit_tb uut (
+    reg_16_bit uut (
         .clk(   clk),
         .reset( reset),
         .ena(   ena),
@@ -18,8 +18,12 @@ module reg_16_bit_tb();
         .out(   out)
     );
 
-    assign clk = 0;
-    always #(CLK_PERIOD / 2) clk = ~clk;
+    always begin
+        clk = 0;
+        #(CLK_PERIOD/2);
+        clk = 1;
+        #(CLK_PERIOD/2);
+    end
 
     initial begin
                    #100;        // GSR
