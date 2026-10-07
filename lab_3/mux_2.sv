@@ -1,8 +1,8 @@
 module mux_2 (
-    input  logic [15:0] in_1;
-    input  logic [15:0] in_2;
-    input  logic        sel;
-    output logic [15:0] out;
+    input  logic [15:0] in_1,
+    input  logic [15:0] in_2,
+    input  logic        sel,
+    output logic [15:0] out
 );
 
     always_comb begin
