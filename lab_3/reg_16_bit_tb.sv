@@ -26,6 +26,8 @@ module reg_16_bit_tb();
     end
 
     initial begin
+        reset = 0;
+        ena   = 0;
                    #100;        // GSR
         reset = 1; #CLK_PERIOD; // Reset
         reset = 0; #CLK_PERIOD;
