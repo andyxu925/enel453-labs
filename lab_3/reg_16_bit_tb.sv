@@ -16,9 +16,9 @@ module reg_16_bit_tb();
         .ena(   ena),
         .in(    in),
         .out(   out)
-    )
+    );
 
-    clk = 0;
+    assign clk = 0;
     always #(CLK_PERIOD / 2) clk = ~clk;
 
     initial begin
