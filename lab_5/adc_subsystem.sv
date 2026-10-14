@@ -2,9 +2,21 @@ module adc_subsystem #(
     parameter int SCALE_MULTIPLIER = 5001,
     parameter int SCALE_SHIFT      = 15
 ) (
-    input  logic       clk,
-    input  logic       reset,
+    input  logic        clk,
+    input  logic        reset,
+    input               vauxp15,
+    input               vauxn15,
+    output logic [15:0] raw_adc_data,
+    output logic [15:0] averaged_adc_data,
+    output logic [15:0] scaled_adc_data
 );
+
+    logic        xadc_enable;
+    logic        xadc_data_ready;
+    logic [15:0] raw_adc_data;
+    logic [15:0] averaged_adc_data;
+    logic [31:0] scaled_product;
+    logic [15:0] scaled_adc_data;
 
     // The XADC IP must be generated in Vivado as xadc_wiz_0 using the settings
     // in the Lab 5 instructions.

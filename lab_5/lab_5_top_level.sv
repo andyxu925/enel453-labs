@@ -6,20 +6,18 @@
 // the top level. The lab exercise asks students to refactor those elements into
 // an ADC subsystem while preserving behaviour.
 module lab_5_top_level (
-    input  logic       clk,
-    input  logic       reset,
-    input  logic [1:0] display_select,
-    input              vauxp15,
-    input              vauxn15,
-    output logic       CA, CB, CC, CD, CE, CF, CG, DP,
-    output logic       AN1, AN2, AN3, AN4,
+    input  logic        clk,
+    input  logic        reset,
+    input  logic [1:0]  display_select,
+    input               vauxp15,
+    input               vauxn15,
+    output logic        CA, CB, CC, CD, CE, CF, CG, DP,
+    output logic        AN1, AN2, AN3, AN4,
     output logic [15:0] led
 );
 
     localparam logic [6:0] CHANNEL_ADDRESS = 7'h1F;
 
-    logic        xadc_enable;
-    logic        xadc_data_ready;
     logic [15:0] raw_adc_data;
     logic [15:0] averaged_adc_data;
     logic [31:0] scaled_product;
@@ -27,6 +25,17 @@ module lab_5_top_level (
     logic [15:0] bcd_data;
     logic [15:0] display_data;
     logic [3:0]  decimal_point;
+
+    adc_subsystem ADC_SUBSYSTEM (
+        .clk(clk),
+        .reset(reset),
+        .vauxp15(vauxp15),
+        .vauxn15(vauxn15),
+
+        .raw_adc_data(raw_adc_data),
+        .averaged_adc_data(averaged_adc_data),
+        .scaled_adc_data(scaled_adc_data)
+    );
 
     bin_to_bcd BIN_TO_BCD (
         .clk(clk),
