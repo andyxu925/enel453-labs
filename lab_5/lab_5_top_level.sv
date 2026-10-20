@@ -16,8 +16,6 @@ module lab_5_top_level (
     output logic [15:0] led
 );
 
-    localparam logic [6:0] CHANNEL_ADDRESS = 7'h1F;
-
     logic [15:0] raw_adc_data;
     logic [15:0] averaged_adc_data;
     logic [31:0] scaled_product;
