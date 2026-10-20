@@ -24,7 +24,7 @@ module lab_5_top_level (
     logic [15:0] display_data;
     logic [3:0]  decimal_point;
 
-    adc_subsystem #(.SCALE_MULTIPLIER(157), .SCALE_SHIFT(10)) ADC_SUBSYSTEM (
+    adc_subsystem #(.SCALE_MULTIPLIER(4993), .SCALE_SHIFT(15)) ADC_SUBSYSTEM (
         .clk(clk),
         .reset(reset),
         .vauxp15(vauxp15),
