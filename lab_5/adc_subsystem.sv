@@ -40,7 +40,7 @@ module adc_subsystem #(
     );
 
     averager #(
-        .N(12),                 // 2**12 = 4096 samples
+        .N(14),                 // 2**12 = 4096 samples
         .DATA_WIDTH(16)
     ) AVERAGER (
         .clk(clk),
