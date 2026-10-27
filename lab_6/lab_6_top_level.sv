@@ -42,7 +42,7 @@ module lab_6_top_level (
     logic        ready_pulse;
     logic [15:0] bcd_value, mux_out;
     logic pwm_tri_enable, pwm_saw_enable, r2r_enable, buzzer_enable;
-    logic pwm_out_internal, buzzer_out_internal;
+    logic pwm_tri_out_internal, pwm_saw_out_internal, buzzer_out_internal;
     logic [7:0] R2R_out_internal;
     
     // Constants
@@ -137,7 +137,7 @@ module lab_6_top_level (
         .clk(clk),           // Connect to system clock
         .reset(reset),       // Connect to system reset
         .enable(triangle_en), // Connect to enable signal
-        .pwm_out(pwm_out_internal), // Connect to PWM output signal
+        .pwm_out(pwm_tri_out_internal), // Connect to PWM output signal
         .R2R_out(R2R_out_internal)  // Connect to R2R ladder header, can leave empty if 
     );                              // not required, i.e. .R2R_out()
 
@@ -149,7 +149,7 @@ module lab_6_top_level (
         .clk(clk),
         .reset(reset),
         .enable(pwm_enable),
-        .pwm_out(pwm_out_internal)
+        .pwm_out(pwm_saw_out_internal)
     );
 
     buzzer_pwm #(
