@@ -37,11 +37,17 @@ module output_mode_fsm (
         r2r_enable = 0;
         buzzer_enable = 0;
         case (current_state)
-            PWM_TRI_MODE:    pwm_tri_enable = 1;
-            PWM_SAW_MODE:    pwm_saw_enable = 1;
-            R2R_MODE:        r2r_enable = 1;
-            BUZZER_MODE:     buzzer_enable = 1;
-            OFF_MODE:        ; // All outputs remain 0
+            PWM_TRI_MODE:   pwm_tri_enable = 1;
+            PWM_SAW_MODE:   pwm_saw_enable = 1;
+            R2R_MODE:       r2r_enable = 1;
+            BUZZER_MODE:    buzzer_enable = 1;
+            OFF_MODE:       ; // All outputs remain 0
+            default: begin
+                pwm_tri_enable = 0;
+                pwm_saw_enable = 0;
+                r2r_enable = 0;
+                buzzer_enable = 0;
+            end
         endcase
     end
 endmodule
