@@ -10,24 +10,24 @@ The ADC is set to single-ended, continuous sampling, 1 MSps, 256 averaging.
 Additional averaging is done using the averager module below.
 */
 module lab_6_top_level (
-    input  logic   clk,
-    input  logic   reset,
-    input  logic [1:0] bin_bcd_select,
-    input  logic [1:0] mode_select,
-   // input  logic [15:0] switches_inputs,
-    input          vauxp15, // Analog input (positive) - connect to JXAC4:N2 PMOD pin  (XADC4)
-    input          vauxn15, // Analog input (negative) - connect to JXAC10:N1 PMOD pin (XADC4)
-    output logic   CA, CB, CC, CD, CE, CF, CG, DP,
-    output logic   AN1, AN2, AN3, AN4,
+    input  logic        clk,
+    input  logic        reset,
+    input  logic [1:0]  bin_bcd_select,
+    input  logic [1:0]  mode_select,
+    // input  logic [15:0] switches_inputs,
+    input               vauxp15, // Analog input (positive) - connect to JXAC4:N2 PMOD pin  (XADC4)
+    input               vauxn15, // Analog input (negative) - connect to JXAC10:N1 PMOD pin (XADC4)
+    output logic        CA, CB, CC, CD, CE, CF, CG, DP,
+    output logic        AN1, AN2, AN3, AN4,
     output logic [15:0] led,
-    output logic   pwm_out,buzzer_out,
-    output logic [7:0] R2R_out
+    output logic        pwm_out, buzzer_out,
+    output logic [7:0]  R2R_out
 );
     // Internal signal declarations
     
     // Tie analog inputs to high-impedance to prevent I/O buffer inference
-    //assign vauxp5 = 1'bZ;
-    //assign vauxn5 = 1'bZ;
+    // assign vauxp5 = 1'bZ;
+    // assign vauxn5 = 1'bZ;
         
     logic        ready;              // Data ready from XADC
     logic [15:0] data;              // Raw ADC data
@@ -35,15 +35,24 @@ module lab_6_top_level (
     logic [15:0] ave_data;        // Averaged ADC data before voltage scaling
     logic [6:0]  daddr_in;              // XADC address
     logic        enable;                // XADC enable
-   // logic [4:0]  channel_out;           // Current XADC channel
-    //logic        eoc_out;               // End of conversion
+    // logic [4:0]  channel_out;           // Current XADC channel
+    // logic        eoc_out;               // End of conversion
     logic        eos_out;               // End of sequence
     logic        busy_out;              // XADC busy signal
     logic        ready_pulse;
-    logic [15:0] bcd_value, mux_out;
-    logic pwm_tri_enable, pwm_saw_enable, r2r_enable, buzzer_enable;
-    logic pwm_tri_out_internal, pwm_saw_out_internal, buzzer_out_internal;
-    logic [7:0] R2R_out_internal;
+    logic [15:0] bcd_value;
+    logic [15:0] mux_out;
+
+    logic        pwm_tri_enable;
+    logic        pwm_saw_enable;
+    logic        r2r_enable;
+    logic        buzzer_enable;
+
+    logic        pwm_out_internal;
+    logic        pwm_tri_out_internal;
+    logic        pwm_saw_out_internal;
+    logic        buzzer_out_internal;
+    logic [7:0]  R2R_out_internal;
     
     // Constants
     localparam CHANNEL_ADDR = 7'h1f;     // XA4/AD15 (for XADC4)
