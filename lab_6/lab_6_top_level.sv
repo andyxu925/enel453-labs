@@ -136,7 +136,7 @@ module lab_6_top_level (
     );
 
     logic triangle_en;
-    assign triangle_en = pwm_enable | r2r_enable;
+    assign triangle_en = pwm_tri_enable | r2r_enable;
     // Instantiate the triangle_generator module
     triangle_generator #(
         .WIDTH(8),           // Bit width for duty_cycle (e.g. 8)
@@ -157,7 +157,7 @@ module lab_6_top_level (
     ) sawtooth_pwm_inst (
         .clk(clk),
         .reset(reset),
-        .enable(pwm_enable),
+        .enable(pwm_saw_enable),
         .pwm_out(pwm_saw_out_internal)
     );
 
@@ -173,7 +173,16 @@ module lab_6_top_level (
 
     // Output multiplexing based on FSM state
     always_comb begin
-        pwm_out = pwm_enable ? pwm_out_internal : 0;
+        if (pwm_tri_enable) begin
+            pwm_out_internal = pwm_tri_out_internal;
+        end else if (pwm_saw_enable) begin
+            pwm_out_internal = pwm_saw_out_internal;
+        end else begin
+            pwm_out_internal = 0;
+        end
+
+        // pwm_out = pwm_enable ? pwm_out_internal : 0;
+        pwm_out = pwm_out_internal;
         R2R_out = r2r_enable ? R2R_out_internal : '0;
         buzzer_out = buzzer_enable ? buzzer_out_internal : 0;
     end
