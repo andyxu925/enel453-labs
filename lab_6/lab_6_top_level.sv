@@ -41,7 +41,7 @@ module lab_6_top_level (
     logic        busy_out;              // XADC busy signal
     logic        ready_pulse;
     logic [15:0] bcd_value, mux_out;
-    logic pwm_enable, r2r_enable, buzzer_enable;
+    logic pwm_tri_enable, pwm_saw_enable, r2r_enable, buzzer_enable;
     logic pwm_out_internal, buzzer_out_internal;
     logic [7:0] R2R_out_internal;
     
@@ -74,7 +74,8 @@ module lab_6_top_level (
         .clk(clk),
         .reset(reset),
         .mode_select(mode_select),
-        .pwm_enable(pwm_enable),
+        .pwm_tri_enable(pwm_tri_enable),
+        .pwm_saw_enable(pwm_saw_enable),
         .r2r_enable(r2r_enable),
         .buzzer_enable(buzzer_enable)
     );
