@@ -125,21 +125,21 @@ module lab_6_top_level (
         .CE(CE), .CF(CF), .CG(CG), .DP(DP), 
         .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
     );
-    
-    // logic triangle_en;
-    // assign triangle_en = pwm_enable | r2r_enable;
-    // // Instantiate the triangle_generator module
-    // triangle_generator #(
-    //     .WIDTH(8),           // Bit width for duty_cycle (e.g. 8)
-    //     .CLOCK_FREQ(100_000_000), // System clock frequency in Hz (e.g. 100_000_000)
-    //     .WAVE_FREQ(1.0)    // Desired triangle wave frequency in Hz (e.g. 1.0)
-    // ) triangle_pwm_inst (
-    //     .clk(clk),           // Connect to system clock
-    //     .reset(reset),       // Connect to system reset
-    //     .enable(triangle_en), // Connect to enable signal
-    //     .pwm_out(pwm_out_internal), // Connect to PWM output signal
-    //     .R2R_out(R2R_out_internal)  // Connect to R2R ladder header, can leave empty if 
-    // );                              // not required, i.e. .R2R_out()
+
+    logic triangle_en;
+    assign triangle_en = pwm_enable | r2r_enable;
+    // Instantiate the triangle_generator module
+    triangle_generator #(
+        .WIDTH(8),           // Bit width for duty_cycle (e.g. 8)
+        .CLOCK_FREQ(100_000_000), // System clock frequency in Hz (e.g. 100_000_000)
+        .WAVE_FREQ(1.0)    // Desired triangle wave frequency in Hz (e.g. 1.0)
+    ) triangle_pwm_inst (
+        .clk(clk),           // Connect to system clock
+        .reset(reset),       // Connect to system reset
+        .enable(triangle_en), // Connect to enable signal
+        .pwm_out(pwm_out_internal), // Connect to PWM output signal
+        .R2R_out(R2R_out_internal)  // Connect to R2R ladder header, can leave empty if 
+    );                              // not required, i.e. .R2R_out()
 
     sawtooth_generator #(
         .WIDTH(8),
