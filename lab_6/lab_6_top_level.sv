@@ -55,6 +55,7 @@ module lab_6_top_level (
     logic       buzzer_chirp_out_internal;
     logic [7:0] R2R_out_internal;
 
+    logic pwm_out_external; // For pwm control in seven segment
     // Constants
     localparam CHANNEL_ADDR = 7'h1f; // XA4/AD15 (for XADC4)
 
@@ -131,7 +132,8 @@ module lab_6_top_level (
         .decimal_point(decimal_pt),
         .CA(CA), .CB(CB), .CC(CC), .CD(CD),
         .CE(CE), .CF(CF), .CG(CG), .DP(DP),
-        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
+        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4),
+        .pwm_in(pwm_out_external)
     );
 
     // Instantiate the triangle_generator module
@@ -200,7 +202,8 @@ module lab_6_top_level (
         .buzzer_out(buzzer_out),
 
         .scaled_adc_data(scaled_adc_data),
-        .led(led)
+        .led(led),
+        .pwm_out_external(pwm_out_external)
     );
 
 
