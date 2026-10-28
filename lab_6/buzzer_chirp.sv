@@ -30,16 +30,16 @@ module buzzer_chirp #(
             step_ticks <= '0;
             max_ticks  <= MAX_COUNT_500;
         end else if (enable) begin
-            if (pwm_ticks == max_ticks) begin
+            if (pwm_ticks >= max_ticks) begin
                 pwm_ticks <= '0;
                 pwm_out   <= ~pwm_out;
             end else begin
                 pwm_ticks <= pwm_ticks + 1;
             end
 
-            if (step_ticks == STEP_COUNT) begin
+            if (step_ticks >= STEP_COUNT) begin
                 step_ticks <= '0;
-                if (max_ticks == MAX_COUNT_10000) begin
+                if (max_ticks <= MAX_COUNT_10000) begin
                     max_ticks <= MAX_COUNT_500;
                 end else begin
                     max_ticks <= max_ticks - 1;
