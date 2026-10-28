@@ -13,7 +13,7 @@ module lab_6_top_level (
     input  logic        clk,
     input  logic        reset,
     input  logic [1:0]  bin_bcd_select,
-    input  logic [1:0]  mode_select,
+    input  logic [2:0]  mode_select,
     // input  logic [15:0] switches_inputs,
     input               vauxp15, // Analog input (positive) - connect to JXAC4:N2 PMOD pin  (XADC4)
     input               vauxn15, // Analog input (negative) - connect to JXAC10:N1 PMOD pin (XADC4)
