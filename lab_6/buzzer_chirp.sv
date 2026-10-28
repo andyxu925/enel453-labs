@@ -24,12 +24,12 @@ module buzzer_chirp #(
     logic [31:0] max_ticks;
 
     always_ff @(posedge clk) begin
-        if (reset) begin
+        if (reset || !enable) begin
             pwm_out    <= '0;
             pwm_ticks  <= '0;
             step_ticks <= '0;
             max_ticks  <= MAX_COUNT_500;
-        end else begin
+        end else (enable) begin
             if (pwm_ticks == max_ticks) begin
                 pwm_ticks <= '0;
                 pwm_out   <= ~pwm_out;
