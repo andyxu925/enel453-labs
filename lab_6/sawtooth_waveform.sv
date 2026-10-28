@@ -1,17 +1,17 @@
 module sawtooth_generator #(
-    parameter int   WIDTH       = 8,
-    parameter int   CLOCK_FREQ  = 100_000_000,
-    parameter real  WAVE_FREQ   = 1.0
+    parameter int  WIDTH      = 8,
+    parameter int  CLOCK_FREQ = 100_000_000,
+    parameter real WAVE_FREQ  = 1.0
 ) (
-    input   logic               clk,
-    input   logic               reset,
-    input   logic               enable,
-    output  logic               pwm_out
+    input  logic clk,
+    input  logic reset,
+    input  logic enable,
+    output logic pwm_out
 );
 
-    localparam int MAX_DUTY_CYCLE       = (2 ** WIDTH) - 1;
-    localparam int TOTAL_STEPS          = MAX_DUTY_CYCLE + 1;
-    localparam int DOWNCOUNTER_PERIOD   = integer'(CLOCK_FREQ / (WAVE_FREQ * TOTAL_STEPS));
+    localparam int MAX_DUTY_CYCLE     = (2 ** WIDTH) - 1;
+    localparam int TOTAL_STEPS        = MAX_DUTY_CYCLE + 1;
+    localparam int DOWNCOUNTER_PERIOD = integer'(CLOCK_FREQ / (WAVE_FREQ * TOTAL_STEPS));
 
     initial begin
         if (DOWNCOUNTER_PERIOD <= 0) begin
@@ -19,8 +19,8 @@ module sawtooth_generator #(
         end
     end
 
-    logic               zero;
-    logic [WIDTH-1:0]   duty_cycle;
+    logic             zero;
+    logic [WIDTH-1:0] duty_cycle;
 
     downcounter #(
         .PERIOD(DOWNCOUNTER_PERIOD)
@@ -48,11 +48,11 @@ module sawtooth_generator #(
     pwm #(
         .WIDTH(WIDTH)
     ) pwm_inst (
-        .clk(       clk),
-        .reset(     reset),
-        .enable(    enable),
+        .clk(clk),
+        .reset(reset),
+        .enable(enable),
         .duty_cycle(duty_cycle),
-        .pwm_out(   pwm_out)
+        .pwm_out(pwm_out)
     );
 
 endmodule
