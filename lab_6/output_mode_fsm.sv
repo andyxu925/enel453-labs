@@ -1,11 +1,11 @@
 module output_mode_fsm (
-    input  logic clk,
-    input  logic reset,
-    input  logic [2:0] mode_select,  // Two-bit input for mode selection
-    output logic pwm_tri_enable,
-    output logic pwm_saw_enable,
-    output logic r2r_enable,
-    output logic buzzer_enable
+    input  logic        clk,
+    input  logic        reset,
+    input  logic [2:0]  mode_select,  // Two-bit input for mode selection
+    output logic        pwm_tri_enable,
+    output logic        pwm_saw_enable,
+    output logic        r2r_enable,
+    output logic        buzzer_enable
 );
     typedef enum logic [2:0] {
         OFF_MODE = 3'b000,
@@ -36,6 +36,7 @@ module output_mode_fsm (
         pwm_saw_enable = 0;
         r2r_enable = 0;
         buzzer_enable = 0;
+
         case (current_state)
             PWM_TRI_MODE:   pwm_tri_enable = 1;
             PWM_SAW_MODE:   pwm_saw_enable = 1;
