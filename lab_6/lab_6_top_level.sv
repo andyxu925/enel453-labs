@@ -172,6 +172,15 @@ module lab_6_top_level (
         .pwm_out(buzzer_out_internal) // Connect this to the buzzer output pin
     );
 
+    buzzer_chirp #(
+        .CLOCK_FREQ(100_000_000)
+    ) buzzer_chirp_inst (
+        .clk(clk),
+        .reset(reset),
+        .enable(enable),
+        .pwm_out(buzzer_chirp_out_internal)
+    );
+
     // Output multiplexing based on FSM state
     always_comb begin
         if (pwm_tri_enable) begin
