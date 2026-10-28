@@ -52,7 +52,6 @@ module lab_6_top_level (
     logic       pwm_out_internal;
     logic       pwm_tri_out_internal;
     logic       pwm_saw_out_internal;
-    logic       buzzer_out_internal;
     logic       buzzer_pwm_out_internal;
     logic       buzzer_chirp_out_internal;
     logic [7:0] R2R_out_internal;
@@ -195,18 +194,17 @@ module lab_6_top_level (
         end
 
         if (buzzer_pwm_enable) begin
-            buzzer_out_internal = buzzer_pwm_out_internal;
+            buzzer_out = buzzer_pwm_out_internal;
         end else if (buzzer_chirp_enable) begin
-            buzzer_out_internal = buzzer_chirp_out_internal;
+            buzzer_out = buzzer_chirp_out_internal;
         end else begin
-            buzzer_out_internal = 0;
+            buzzer_out = 0;
         end
 
         // pwm_out = pwm_enable ? pwm_out_internal : 0;
         pwm_out = pwm_out_internal;
         R2R_out = r2r_enable ? R2R_out_internal : '0;
         // buzzer_out = buzzer_enable ? buzzer_out_internal : 0;
-        buzzer_out = buzzer_out_internal;
     end
 
 endmodule
