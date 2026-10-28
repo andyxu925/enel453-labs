@@ -17,10 +17,11 @@ module output_mux (
     output logic        buzzer_out,
 
     input  logic [15:0] scaled_adc_data,
-    output logic [15:0] led
+    output logic [15:0] led,
+    output logic pwm_out_external
 );
     logic pwm_out_internal;
-
+    assign pwm_out_external = pwm_out_internal;
     // Connect ADC data to LEDs, make LEDs' brightness pulse with pwm_out
     assign led = pwm_out_internal ? scaled_adc_data : '0;
 
