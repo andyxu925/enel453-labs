@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Thu Oct 22 11:58:46 2026
+-- Date        : Wed Oct 28 02:44:45 2026
 -- Host        : DESKTOP-3BV6VRB running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub -rename_top xadc_wiz_0 -prefix
---               xadc_wiz_0_ xadc_wiz_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub
+--               c:/Users/Andy/Documents/fake/2627/f26/enel453/labs/lab_6/lab_6.gen/sources_1/ip/xadc_wiz_0/xadc_wiz_0_stub.vhdl
 -- Design      : xadc_wiz_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcpg236-1
