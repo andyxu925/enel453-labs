@@ -49,7 +49,6 @@ module lab_6_top_level (
     logic buzzer_pwm_enable;
     logic buzzer_chirp_enable;
 
-    logic       pwm_out_internal;
     logic       pwm_tri_out_internal;
     logic       pwm_saw_out_internal;
     logic       buzzer_pwm_out_internal;
@@ -103,9 +102,6 @@ module lab_6_top_level (
         .ready_pulse(ready_pulse)
     );
 
-    // Connect ADC data to LEDs, make LEDs' brightness pulse with pwm_out
-    assign led = pwm_out_internal ? scaled_adc_data : '0;
-
     bin_to_bcd BIN2BCD (
         .clk(clk),
         .reset(reset),
@@ -138,8 +134,6 @@ module lab_6_top_level (
         .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
     );
 
-    logic triangle_en;
-    assign triangle_en = pwm_tri_enable | r2r_enable;
     // Instantiate the triangle_generator module
     triangle_generator #(
         .WIDTH(8),                // Bit width for duty_cycle (e.g. 8)
@@ -187,27 +181,27 @@ module lab_6_top_level (
     );
 
     // Output multiplexing based on FSM state
-    always_comb begin
-        if (pwm_tri_enable) begin
-            pwm_out_internal = pwm_tri_out_internal;
-        end else if (pwm_saw_enable) begin
-            pwm_out_internal = pwm_saw_out_internal;
-        end else begin
-            pwm_out_internal = 0;
-        end
+    output_mux (
+        .pwm_tri_enable(pwm_tri_enable),
+        .pwm_saw_enable(pwm_saw_enable),
+        .pwm_tri_out_internal(pwm_tri_out_internal),
+        .pwm_saw_out_internal(pwm_saw_out_internal),
+        .triangle_en(triangle_en),
+        .pwm_out(pwm_out),
 
-        if (buzzer_pwm_enable) begin
-            buzzer_out = buzzer_pwm_out_internal;
-        end else if (buzzer_chirp_enable) begin
-            buzzer_out = buzzer_chirp_out_internal;
-        end else begin
-            buzzer_out = 0;
-        end
+        .r2r_enable(r2r_enable),
+        .R2R_out_internal(R2R_out_internal),
+        .R2R_out(R2R_out),
 
-        // pwm_out = pwm_enable ? pwm_out_internal : 0;
-        pwm_out = pwm_out_internal;
-        R2R_out = r2r_enable ? R2R_out_internal : '0;
-        // buzzer_out = buzzer_enable ? buzzer_out_internal : 0;
-    end
+        .buzzer_pwm_enable(buzzer_pwm_enable),
+        .buzzer_chirp_enable(buzzer_chirp_enable),
+        .buzzer_pwm_out_internal(buzzer_pwm_out_internal),
+        .buzzer_chirp_out_internal(buzzer_chirp_out_internal),
+        .buzzer_out(buzzer_out),
+
+        .scaled_adc_data(scaled_adc_data),
+        .led(led)
+    );
+
 
 endmodule
