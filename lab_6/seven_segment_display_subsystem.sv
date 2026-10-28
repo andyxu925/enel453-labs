@@ -32,7 +32,8 @@ module seven_segment_display_subsystem (
     input  logic [3:0]  min_dig2, // tens of minutes
     input  logic [3:0] decimal_point, 
     output logic        CA, CB, CC, CD, CE, CF, CG, DP, // segment outputs (active-low)
-    output logic        AN1, AN2, AN3, AN4 // anode outputs for digit selection (active-low)
+    output logic        AN1, AN2, AN3, AN4, // anode outputs for digit selection (active-low)
+    input logic pwm_in
 );
 
     // Internal signals
@@ -68,12 +69,11 @@ module seven_segment_display_subsystem (
         .CA( CA), .CB( CB), .CC( CC), .CD( CD), .CE( CE), .CF( CF), .CG( CG), // Segment outputs (active-low)
         .DP( out_DP)              // Decimal point output (active-low)
     );
-
     // Connect anodes
-    assign AN1 = an_outputs[0];
-    assign AN2 = an_outputs[1];
-    assign AN3 = an_outputs[2];
-    assign AN4 = an_outputs[3];
+    assign AN1 = pwm_in ? an_outputs[0] : '1;
+    assign AN2 = pwm_in ? an_outputs[1] : '1;
+    assign AN3 = pwm_in ? an_outputs[2] : '1;
+    assign AN4 = pwm_in ? an_outputs[3] : '1;
 
     // Control the decimal point: You can modify `in_DP` assignment as per the design
     //assign in_DP = 0;  // No decimal point by default, modify as needed
