@@ -22,6 +22,7 @@ module output_mux (
 );
     logic pwm_out_internal;
     assign pwm_out_external = pwm_out_internal;
+
     // Connect ADC data to LEDs, make LEDs' brightness pulse with pwm_out
     assign led = pwm_out_internal ? scaled_adc_data : '0;
 

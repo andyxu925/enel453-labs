@@ -54,8 +54,8 @@ module lab_6_top_level (
     logic       buzzer_pwm_out_internal;
     logic       buzzer_chirp_out_internal;
     logic [7:0] R2R_out_internal;
-
     logic pwm_out_external; // For pwm control in seven segment
+
     // Constants
     localparam CHANNEL_ADDR = 7'h1f; // XA4/AD15 (for XADC4)
 
