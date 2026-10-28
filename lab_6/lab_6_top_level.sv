@@ -46,7 +46,8 @@ module lab_6_top_level (
     logic pwm_tri_enable;
     logic pwm_saw_enable;
     logic r2r_enable;
-    logic buzzer_enable;
+    logic buzzer_pwm_enable;
+    logic buzzer_chirp_enable;
 
     logic       pwm_out_internal;
     logic       pwm_tri_out_internal;
@@ -171,7 +172,7 @@ module lab_6_top_level (
         .clk(clk),
         .reset(reset),
         .enable(buzzer_pwm_enable),
-        .pwm_out(buzzer_out_internal) // Connect this to the buzzer output pin
+        .pwm_out(buzzer_pwm_out_internal) // Connect this to the buzzer output pin
     );
 
     buzzer_chirp #(
