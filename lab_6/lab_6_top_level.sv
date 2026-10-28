@@ -175,7 +175,10 @@ module lab_6_top_level (
     );
 
     buzzer_chirp #(
-        .CLOCK_FREQ(100_000_000)
+        .CLOCK_FREQ(100_000_000),
+        .SWEEP_DUR(2),
+        .LOW_F(500),
+        .HIGH_F(10000)
     ) buzzer_chirp_inst (
         .clk(clk),
         .reset(reset),
