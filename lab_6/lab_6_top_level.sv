@@ -52,6 +52,7 @@ module lab_6_top_level (
     logic       pwm_tri_out_internal;
     logic       pwm_saw_out_internal;
     logic       buzzer_out_internal;
+    logic       buzzer_pwm_out_internal;
     logic       buzzer_chirp_out_internal;
     logic [7:0] R2R_out_internal;
 
@@ -87,7 +88,8 @@ module lab_6_top_level (
         .pwm_tri_enable(pwm_tri_enable),
         .pwm_saw_enable(pwm_saw_enable),
         .r2r_enable(r2r_enable),
-        .buzzer_enable(buzzer_enable)
+        .buzzer_pwm_enable(buzzer_pwm_enable),
+        .buzzer_chirp_enable(buzzer_chirp_enable)
     );
 
     // Instantiate the adc_processing module
@@ -168,7 +170,7 @@ module lab_6_top_level (
     ) buzzer_inst (
         .clk(clk),
         .reset(reset),
-        .enable(buzzer_enable),
+        .enable(buzzer_pwm_enable),
         .pwm_out(buzzer_out_internal) // Connect this to the buzzer output pin
     );
 
@@ -177,7 +179,7 @@ module lab_6_top_level (
     ) buzzer_chirp_inst (
         .clk(clk),
         .reset(reset),
-        .enable(enable),
+        .enable(buzzer_chirp_enable),
         .pwm_out(buzzer_chirp_out_internal)
     );
 
