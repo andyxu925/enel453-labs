@@ -54,6 +54,11 @@ always_ff @(posedge clk) begin
 end
 ```
 
+#image("4_1.png")
+
+// TODO: annotate according to lab document
+#image("4_2.png")
+
 === Step 5
 === Step 6
 === Step 7
