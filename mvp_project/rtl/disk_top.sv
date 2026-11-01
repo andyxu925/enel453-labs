@@ -127,6 +127,7 @@ module disk_top
     input  logic                 step_up_button,
     input  logic                 step_down_button,
     input  logic [KP_WIDTH-1:0]  kp_switches,
+    input  logic                 display_switch,
     input  logic                 arm_switch,
     input  logic                 ch_a,
     input  logic                 ch_b,
