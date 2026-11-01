@@ -109,6 +109,14 @@ module quad_decoder
                 //--------------------------------------------------------------
 
                 // no change, or both channels changed at once: keep the count
+                4'b00_10    :   position <= position + 1'b1
+                4'b10_11    :   position <= position + 1'b1
+                4'b11_01    :   position <= position + 1'b1
+                4'b01_00    :   position <= position + 1'b1
+                4'b00_01    :   position <= position - 1'b1
+                4'b01_11    :   position <= position - 1'b1
+                4'b11_10    :   position <= position - 1'b1
+                4'b10_00    :   position <= position - 1'b1
                 default: position <= position;
             endcase
         end
