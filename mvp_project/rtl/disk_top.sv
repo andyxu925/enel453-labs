@@ -318,8 +318,9 @@ module disk_top
     //--------------------------------------------------------------------------
 
     position_to_degrees POSITION_TO_DEGREES (
-        .position(position),          // signed position, counts
-        .degrees(degrees)             // angle within one revolution, 0 to 359
+        .position(position),            // signed position, counts
+        .degrees(degrees),              // angle within one revolution, 0 to 359
+        .display_switch(display_switch) // feeds in direct sw[10] value for mode select
     );
 
     bin_to_bcd BIN_TO_BCD (

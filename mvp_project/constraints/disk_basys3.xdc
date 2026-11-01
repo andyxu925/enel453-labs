@@ -37,6 +37,7 @@ set_property -dict { PACKAGE_PIN V17 IOSTANDARD LVCMOS33 } [get_ports {kp_switch
 set_property -dict { PACKAGE_PIN V16 IOSTANDARD LVCMOS33 } [get_ports {kp_switches[1]}]  ;# sw[1]
 set_property -dict { PACKAGE_PIN W16 IOSTANDARD LVCMOS33 } [get_ports {kp_switches[2]}]  ;# sw[2]
 set_property -dict { PACKAGE_PIN W17 IOSTANDARD LVCMOS33 } [get_ports {kp_switches[3]}]  ;# sw[3]
+set_property -dict { PACKAGE_PIN T2  IOSTANDARD LVCMOS33 } [get_ports display_switch]    ;# sw[10]
 set_property -dict { PACKAGE_PIN R2  IOSTANDARD LVCMOS33 } [get_ports arm_switch]        ;# sw[15]
 
 ##------------------------------------------------------------------------------

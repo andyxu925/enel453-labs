@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="70" Path="C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/mvp_project/mvp_project.xpr">
+<Project Product="Vivado" Version="7" Minor="70" Path="C:/Users/nicho/enel453-labs/mvp_project/mvp_project.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="7403d062fe60405aad5c333eb284c993"/>
@@ -221,6 +221,7 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1" RelGenDir="$PGENDIR/sim_1">
       <Filter Type="Srcs"/>
+<<<<<<< Updated upstream
       <File Path="$PPRDIR/tb/tb_quad_decoder.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -228,6 +229,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+=======
+>>>>>>> Stashed changes
       <File Path="$PPRDIR/tb/tb_p_controller.sv">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>

@@ -56,7 +56,8 @@
 module position_to_degrees
     import disk_pkg::*;     // POSITION_WIDTH, DEGREES_WIDTH, COUNTS_PER_REV, DEGREES_PER_REV
 (
-    input  logic signed [POSITION_WIDTH-1:0] position,
+    input  logic  display_switch,
+    input  logic  signed [POSITION_WIDTH-1:0] position,
     output logic        [DEGREES_WIDTH-1:0]  degrees
 );
 
@@ -69,5 +70,9 @@ module position_to_degrees
     assign count_in_rev    = position[REV_BITS-1:0];                       // modulo 2048
     assign count_times_360 = count_in_rev * DEGREES_WIDTH'(DEGREES_PER_REV); // multiply first
     assign degrees         = DEGREES_WIDTH'(count_times_360 >> REV_BITS);    // then / 2048
+
+    if (display_switch) begin
+        assign degrees = count_in_rev;
+    end
 
 endmodule
