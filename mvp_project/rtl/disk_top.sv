@@ -150,6 +150,7 @@ module disk_top
     logic                             encoder_a;
     logic                             encoder_b;
     logic        [KP_WIDTH-1:0]       kp;
+    logic                             display;
     logic                             arm;
     logic                             step_up;
     logic                             step_down;
@@ -201,6 +202,15 @@ module disk_top
         .clk(clk),                    // system clock
         .d(kp_switches),              // sw[3:0]
         .q(kp)                        // synchronized gain, 0 to 15
+    );
+
+    // Display switch
+    synchronizer #(
+        .WIDTH(1)
+    ) DISPLAY_SYNC (
+        .clk(clk),
+        .d(display_switch),
+        .q(display)
     );
 
     // Arm switch.
