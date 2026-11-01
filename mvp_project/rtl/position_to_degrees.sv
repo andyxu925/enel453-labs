@@ -58,7 +58,7 @@ module position_to_degrees
 (
     input  logic signed [POSITION_WIDTH-1:0]       position,
     output logic        [DEGREES_WIDTH-1:0]        degrees,
-    output logic        [$clog2(COUNTS_PER_REV):0] revs
+    output logic        [$clog2(COUNTS_PER_REV)-1:0] revs
 );
 
     localparam int REV_BITS     = $clog2(COUNTS_PER_REV);    // 11 bits count 0..2047
