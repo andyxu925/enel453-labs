@@ -1,3 +1,0 @@
-Time resolution is 1 ps
-PASS tb_quad_decoder
-$finish called at time : 62860 ns : File "C:/Users/Andy/Documents/fake/2627/f26/enel453/labs/mvp_project/tb/tb_quad_decoder.sv" Line 95
