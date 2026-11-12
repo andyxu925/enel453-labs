@@ -59,6 +59,7 @@ module position_to_degrees
     input  logic signed [POSITION_WIDTH-1:0]       position,
     // output logic        [DEGREES_WIDTH-1:0]        degrees,
     // output logic        [$clog2(COUNTS_PER_REV)-1:0] revs,
+    input  logic                                     display_switch,
     output logic        [$clog2(COUNTS_PER_REV)-1:0] display_data
 );
 
