@@ -150,7 +150,7 @@ module disk_top
     logic                             encoder_a;
     logic                             encoder_b;
     logic        [KP_WIDTH-1:0]       kp;
-    // logic                             display;
+    logic                             display;
     logic                             arm;
     logic                             step_up;
     logic                             step_down;
@@ -159,7 +159,7 @@ module disk_top
     logic signed [POSITION_WIDTH-1:0] position;
     logic signed [POSITION_WIDTH-1:0] setpoint;
     logic signed [COMMAND_WIDTH-1:0]  command;
-    // logic        [DEGREES_WIDTH-1:0]  degrees;
+    logic        [DEGREES_WIDTH-1:0]  degrees;
     logic        [15:0]               degrees_bcd;
 
     logic        [$clog2(COUNTS_PER_REV)-1:0] display_data;
@@ -332,8 +332,8 @@ module disk_top
 
     position_to_degrees POSITION_TO_DEGREES (
         .position(position),            // signed position, counts
-        // .degrees(degrees),              // angle within one revolution, 0 to 359
-        // .revs(revs)                     // raw encoder value, 0 to 2047
+        .degrees(degrees),              // angle within one revolution, 0 to 359
+        .revs(revs)                     // raw encoder value, 0 to 2047
         .display_data(display_data),
         .display_switch(display)
     );

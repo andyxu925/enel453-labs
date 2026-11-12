@@ -57,8 +57,8 @@ module position_to_degrees
     import disk_pkg::*;     // POSITION_WIDTH, DEGREES_WIDTH, COUNTS_PER_REV, DEGREES_PER_REV
 (
     input  logic signed [POSITION_WIDTH-1:0]       position,
-    // output logic        [DEGREES_WIDTH-1:0]        degrees,
-    // output logic        [$clog2(COUNTS_PER_REV)-1:0] revs,
+    output logic        [DEGREES_WIDTH-1:0]        degrees,
+    output logic        [$clog2(COUNTS_PER_REV)-1:0] revs,
     input  logic                                     display_switch,
     output logic        [$clog2(COUNTS_PER_REV)-1:0] display_data
 );
