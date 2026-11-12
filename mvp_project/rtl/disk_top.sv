@@ -333,7 +333,7 @@ module disk_top
     position_to_degrees POSITION_TO_DEGREES (
         .position(position),            // signed position, counts
         .degrees(degrees),              // angle within one revolution, 0 to 359
-        .revs(revs)                     // raw encoder value, 0 to 2047
+        .revs(revs),                    // raw encoder value, 0 to 2047
         .display_data(display_data),
         .display_switch(display)
     );
@@ -345,6 +345,8 @@ module disk_top
         .bcd_out(degrees_bcd)         // four BCD digits, e.g. 0359
     );
 
+    logic [3:0] digit_blank_sig;
+    assign digit_blank_sig = display ? 4'b1000 : 4'b0000; 
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk(clk),                    // system clock
         .reset(reset),                // synchronous reset
@@ -353,7 +355,7 @@ module disk_top
         .digit3(degrees_bcd[11:8]),   // hundreds of degrees
         .digit4(degrees_bcd[15:12]),  // thousands: always 0, blanked (leftmost)
         .decimal_point(4'b0000),      // no decimal points
-        .digit_blank(4'b1000),        // leftmost digit dark: shows " 090"
+        .digit_blank(digit_blank_sig),        // leftmost digit dark: shows " 090"
         .CA(CA),                      // segment outputs (active low)
         .CB(CB),
         .CC(CC),
