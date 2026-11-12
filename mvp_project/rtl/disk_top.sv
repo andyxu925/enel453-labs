@@ -162,7 +162,7 @@ module disk_top
     logic        [DEGREES_WIDTH-1:0]  degrees;
     logic        [15:0]               degrees_bcd;
 
-    logic        [$clog2(COUNTS_PER_REV)-1:0] revs;
+    logic        [$clog2(COUNTS_PER_REV)-1:0] display_data;
 
     //--------------------------------------------------------------------------
     // Inputs: synchronize the switches, encoder and reset button; debounce the
@@ -332,14 +332,15 @@ module disk_top
 
     position_to_degrees POSITION_TO_DEGREES (
         .position(position),            // signed position, counts
-        .degrees(degrees),              // angle within one revolution, 0 to 359
-        .revs(revs)                     // raw encoder value, 0 to 2047
+        // .degrees(degrees),              // angle within one revolution, 0 to 359
+        // .revs(revs)                     // raw encoder value, 0 to 2047
+        .display(display_data)
     );
 
     bin_to_bcd BIN_TO_BCD (
         .clk(clk),                    // system clock
         .reset(reset),                // synchronous reset
-        .bin_in(16'(degrees)),        // 9-bit angle, zero-extended to 16 bits
+        .bin_in(16'(display_data)),        // 9-bit angle, zero-extended to 16 bits
         .bcd_out(degrees_bcd)         // four BCD digits, e.g. 0359
     );
 
