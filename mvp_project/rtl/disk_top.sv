@@ -334,7 +334,8 @@ module disk_top
         .position(position),            // signed position, counts
         // .degrees(degrees),              // angle within one revolution, 0 to 359
         // .revs(revs)                     // raw encoder value, 0 to 2047
-        .display(display_data)
+        .display_data(display_data),
+        .display_switch(display_switch)
     );
 
     bin_to_bcd BIN_TO_BCD (
