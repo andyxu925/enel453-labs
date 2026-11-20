@@ -21,12 +21,12 @@
 
 
 module debounce_subsystem #(CLK_FREQ, DEBOUNCE_MS)(
-    input clk,
-    input reset,
-    input step_up_button,
-    input step_up,
-    input step_down_button,
-    input step_down
+    input  clk,
+    input  reset,
+    input  step_up_button,
+    output step_up,
+    input  step_down_button,
+    output  step_down
     );
         // Step-up button (btnR).
     debounce #(
