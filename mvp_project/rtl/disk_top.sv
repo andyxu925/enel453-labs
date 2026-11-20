@@ -168,31 +168,26 @@ module disk_top
     // Inputs: synchronize the switches, encoder and reset button; debounce the
     // step buttons.
     //--------------------------------------------------------------------------
-
-    synchronizer_subsystem # (KP_WIDTH) SYNCHRONIZER(
-    .clk(clk),
-    .reset_button(reset_button),
-    .reset(reset),
-    .ch_a(ch_a),
-    .encoder_a(encoder_a),
-    .ch_b(ch_b),
-    .encoder_b(encoder_b),
-    .kp_switches(kp_switches),
-    .kp(kp),
-    .display_switch(display_switch),
-    .display(display),
-    .arm_switch(arm_switch),
-    .arm(arm) 
+    input_conditioning INPUT_CONDITIONING (
+        .clk(clk),
+        .reset_button(reset_button),
+        .reset(reset),
+        .ch_a(ch_a),
+        .encoder_a(encoder_a),
+        .ch_b(ch_b),
+        .encoder_b(encoder_b),
+        .kp_switches(kp_switches),
+        .kp(kp),
+        .display_switch(display_switch),
+        .display(display),
+        .arm_switch(arm_switch),
+        .arm(arm),
+        .step_up_button(step_up_button),
+        .step_up(step_up),
+        .step_down_button(step_down_button),
+        .step_down(step_down)
     );
 
-    debounce_subsystem #(CLK_FREQ, DEBOUNCE_MS) DEBOUNCE(
-    .clk(clk),
-    .reset(reset),
-    .step_up_button(step_up_button),
-    .step_up(step_up),
-    .step_down_button(step_down_button),
-    .step_down(step_down)
-    );
     //--------------------------------------------------------------------------
     // Clock-enable pulses
     //--------------------------------------------------------------------------
