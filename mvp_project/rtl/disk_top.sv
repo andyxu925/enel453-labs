@@ -169,105 +169,40 @@ module disk_top
     // step buttons.
     //--------------------------------------------------------------------------
 
-    // Reset button. The synchronizer has no reset of its own, so it can
-    // synchronize the reset button itself.
-    synchronizer #(
-        .WIDTH(1)
-    ) RESET_SYNC (
-        .clk(clk),                    // system clock
-        .d(reset_button),             // btnC, asynchronous
-        .q(reset)                     // synchronized reset for the whole design
+    synchronizer_subsystem # (KP_WIDTH) SYNCHRONIZER(
+    .clk(clk),
+    .reset_button(reset_button),
+    .reset(reset),
+    .ch_a(ch_a),
+    .encoder_a(encoder_a),
+    .ch_b(ch_b),
+    .encoder_b(encoder_b),
+    .kp_switches(kp_switches),
+    .kp(kp),
+    .display_switch(display_switch),
+    .display(display),
+    .arm_switch(arm_switch),
+    .arm(arm) 
     );
 
-    // Encoder channel A.
-    synchronizer #(
-        .WIDTH(1)
-    ) ENCODER_A_SYNC (
-        .clk(clk),                    // system clock
-        .d(ch_a),                     // encoder channel A, from Pmod JB1
-        .q(encoder_a)                 // synchronized channel A
+    debounce_subsystem #(CLK_FREQ, DEBOUNCE_MS) DEBOUNCE(
+    .clk(clk),
+    .reset(reset),
+    .step_up_button(step_up_button),
+    .step_up(step_up),
+    .step_down_button(step_down_button),
+    .step_down(step_down)
     );
-
-    // Encoder channel B.
-    synchronizer #(
-        .WIDTH(1)
-    ) ENCODER_B_SYNC (
-        .clk(clk),                    // system clock
-        .d(ch_b),                     // encoder channel B, from Pmod JB2
-        .q(encoder_b)                 // synchronized channel B
-    );
-
-    // Gain switches, all four bits in one synchronizer.
-    synchronizer #(
-        .WIDTH(KP_WIDTH)               // 4 switches
-    ) KP_SYNC (
-        .clk(clk),                    // system clock
-        .d(kp_switches),              // sw[3:0]
-        .q(kp)                        // synchronized gain, 0 to 15
-    );
-
-    // Display switch
-    synchronizer #(
-        .WIDTH(1)
-    ) DISPLAY_SYNC (
-        .clk(clk),
-        .d(display_switch),
-        .q(display)
-    );
-
-    // Arm switch.
-    synchronizer #(
-        .WIDTH(1)
-    ) ARM_SYNC (
-        .clk(clk),                    // system clock
-        .d(arm_switch),               // sw[15]
-        .q(arm)                       // synchronized: 1 = motor allowed to run
-    );
-
-    // Step-up button (btnR).
-    debounce #(
-        .CLK_FREQ(CLK_FREQ),          // system clock frequency, Hz
-        .STABLE_TIME_MS(DEBOUNCE_MS)  // button must be steady this long
-    ) STEP_UP_DEBOUNCE (
-        .clk(clk),                    // system clock
-        .reset(reset),                // synchronous reset
-        .button(step_up_button),      // raw btnR
-        .result(step_up)              // debounced: 1 while held
-    );
-
-    // Step-down button (btnL).
-    debounce #(
-        .CLK_FREQ(CLK_FREQ),          // system clock frequency, Hz
-        .STABLE_TIME_MS(DEBOUNCE_MS)  // button must be steady this long
-    ) STEP_DOWN_DEBOUNCE (
-        .clk(clk),                    // system clock
-        .reset(reset),                // synchronous reset
-        .button(step_down_button),    // raw btnL
-        .result(step_down)            // debounced: 1 while held
-    );
-
     //--------------------------------------------------------------------------
     // Clock-enable pulses
     //--------------------------------------------------------------------------
 
-    // 100 Hz pulse: tells the controller when to take a sample.
-    downcounter #(
-        .PERIOD(CTRL_PERIOD)          // 1,000,000 cycles = 10 ms
-    ) CONTROL_TICK_GEN (
-        .clk(clk),                    // system clock
-        .reset(reset),                // synchronous reset
-        .enable(1'b1),                // always counting
-        .zero(control_tick)           // one-cycle pulse every 10 ms
-    );
-
-    // 2.56 MHz pulse: steps the PWM counter (255 steps = one 10 kHz period).
-    downcounter #(
-        .PERIOD(PWM_TICK_PERIOD)      // 39 cycles = 390 ns
-    ) PWM_TICK_GEN (
-        .clk(clk),                    // system clock
-        .reset(reset),                // synchronous reset
-        .enable(1'b1),                // always counting
-        .zero(pwm_tick)               // one-cycle pulse every 39 cycles
+    downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) DOWNCOUNTER (
+    .clk(clk),
+    .reset(reset),
+    .enable(enable),
+    .control_tick(control_tick),
+    .pwm_tick(pwm_tick)
     );
 
     //--------------------------------------------------------------------------
