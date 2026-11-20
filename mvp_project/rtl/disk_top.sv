@@ -335,7 +335,7 @@ module disk_top
         .degrees(degrees),              // angle within one revolution, 0 to 359
         .revs(revs),                    // raw encoder value, 0 to 2047
         .display_data(display_data),
-        .display_switch(display)
+        .display_switch(!display)
     );
 
     bin_to_bcd BIN_TO_BCD (
@@ -346,7 +346,7 @@ module disk_top
     );
 
     logic [3:0] digit_blank_sig;
-    assign digit_blank_sig = display ? 4'b1000 : 4'b0000; 
+    assign digit_blank_sig = !display ? 4'b1000 : 4'b0000; 
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk(clk),                    // system clock
         .reset(reset),                // synchronous reset
