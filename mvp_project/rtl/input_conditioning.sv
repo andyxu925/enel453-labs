@@ -8,7 +8,7 @@ module input_conditioning
     input  logic reset_button,
     input  logic ch_a,
     input  logic ch_b,
-    input  logic kp_switches,
+    input  logic [KP_WIDTH-1:0] kp_switches,
     input  logic display_switch,
     input  logic arm_switch,
     input  logic step_up_button,
@@ -16,16 +16,14 @@ module input_conditioning
     output logic reset,
     output logic encoder_a,
     output logic encoder_b,
-    output logic kp,
+    output logic [KP_WIDTH-1:0] kp,
     output logic display,
     output logic arm,
     output logic step_up,
     output logic step_down
 );
 
-    synchronizer_subsystem #(
-        .kp_width(KP_WIDTH)
-    ) SYNCHRONIZER (
+    synchronizer_subsystem SYNCHRONIZER (
         .clk             (clk),
         .reset_button    (reset_button),
         .reset           (reset),

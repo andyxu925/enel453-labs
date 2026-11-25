@@ -195,7 +195,6 @@ module disk_top
     downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) DOWNCOUNTER (
         .clk(clk),
         .reset(reset),
-        .enable(enable),
         .control_tick(control_tick),
         .pwm_tick(pwm_tick)
     );
