@@ -26,8 +26,6 @@ module display_subsystem
 
     position_to_degrees POSITION_TO_DEGREES (
         .position       (position),
-        .degrees        (degrees),
-        .revs           (revs),
         .display_data   (display_data),
         .display_switch (!display_switch)
     );
