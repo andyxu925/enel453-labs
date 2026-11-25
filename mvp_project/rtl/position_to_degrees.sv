@@ -56,9 +56,7 @@
 module position_to_degrees
     import disk_pkg::*;     // POSITION_WIDTH, DEGREES_WIDTH, COUNTS_PER_REV, DEGREES_PER_REV
 (
-    input  logic signed [POSITION_WIDTH-1:0]       position,
-    output logic        [DEGREES_WIDTH-1:0]        degrees,
-    output logic        [$clog2(COUNTS_PER_REV)-1:0] revs,
+    input  logic signed [POSITION_WIDTH-1:0]         position,
     input  logic                                     display_switch,
     output logic        [$clog2(COUNTS_PER_REV)-1:0] display_data
 );
@@ -66,14 +64,14 @@ module position_to_degrees
     localparam int REV_BITS     = $clog2(COUNTS_PER_REV);    // 11 bits count 0..2047
     localparam int SCALED_WIDTH = REV_BITS + DEGREES_WIDTH;  // 11 + 9 = 20 bits
 
-    logic [REV_BITS-1:0]     count_in_rev;
-    logic [SCALED_WIDTH-1:0] count_times_360;
+    logic [REV_BITS-1:0]      count_in_rev;
+    logic [SCALED_WIDTH-1:0]  count_times_360;
+    logic [DEGREES_WIDTH-1:0] degrees;
 
     assign count_in_rev    = position[REV_BITS-1:0];                         // modulo 2048
     assign count_times_360 = count_in_rev * DEGREES_WIDTH'(DEGREES_PER_REV); // multiply first
     assign degrees         = DEGREES_WIDTH'(count_times_360 >> REV_BITS);    // then / 2048
-    assign revs            = count_in_rev;                                   // position within 0 to 2047
 
-    assign display_data = display_switch ? degrees : revs;
+    assign display_data = display_switch ? degrees : count_in_rev;
 
 endmodule

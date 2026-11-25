@@ -1,25 +1,6 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/20/2026 11:20:17 AM
-// Design Name: 
-// Module Name: synchronizer_subsystem
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-module synchronizer_subsystem #(kp_width)(
+module synchronizer_subsystem
+    import disk_pkg::*;
+(
     input  logic                  clk,
     input  logic                  reset_button,
     output logic                  reset,
@@ -27,8 +8,8 @@ module synchronizer_subsystem #(kp_width)(
     output logic                  encoder_a,
     input  logic                  ch_b,
     output logic                  encoder_b,
-    input  logic [kp_width-1:0]   kp_switches,
-    output logic [kp_width-1:0]   kp,
+    input  logic [KP_WIDTH-1:0]   kp_switches,
+    output logic [KP_WIDTH-1:0]   kp,
     input  logic                  display_switch,
     output logic                  display,
     input  logic                  arm_switch,
@@ -65,7 +46,7 @@ module synchronizer_subsystem #(kp_width)(
 
     // Gain switches, all four bits in one synchronizer.
     synchronizer #(
-        .WIDTH(kp_width)              // 4 switches
+        .WIDTH(KP_WIDTH)              // 4 switches
     ) KP_SYNC (
         .clk(clk),                    // system clock
         .d(kp_switches),              // sw[3:0]

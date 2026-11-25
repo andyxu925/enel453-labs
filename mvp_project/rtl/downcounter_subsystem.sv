@@ -1,31 +1,13 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/20/2026 12:04:00 PM
-// Design Name: 
-// Module Name: downcounter_subsystem
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-module downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) (
-    input  clk,
-    input  reset,
-    input  enable,
-    output control_tick,
-    output pwm_tick
+module downcounter_subsystem
+    import disk_pkg::*;
+#(
+    parameter int CTRL_PERIOD = CLK_FREQ_HZ / CONTROL_FREQ_HZ,
+    parameter int PWM_TICK_PERIOD = CLK_FREQ_HZ / (PWM_FREQ_HZ * COMMAND_MAX)
+) (
+    input  logic clk,
+    input  logic reset,
+    output logic control_tick,
+    output logic pwm_tick
 );
     // 100 Hz pulse: tells the controller when to take a sample.
     downcounter #(
@@ -46,4 +28,5 @@ module downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) (
         .enable(1'b1),                // always counting
         .zero(pwm_tick)               // one-cycle pulse every 39 cycles
     );
+
 endmodule
