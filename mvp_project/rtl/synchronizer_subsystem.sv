@@ -20,21 +20,22 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module synchronizer_subsystem #(kp_width)(
-    input   logic clk,
-    input   logic reset_button,
-    output  logic reset,
-    input   logic ch_a,
-    output  logic encoder_a,
-    input   logic ch_b,
-    output  logic encoder_b,
-    input   logic [kp_width - 1:0] kp_switches,
-    output  logic [kp_width - 1:0] kp,
-    input   logic display_switch,
-    output  logic display,
-    input   logic arm_switch,
-    output  logic arm    
-    );
-        // Reset button. The synchronizer has no reset of its own, so it can
+    input  logic                  clk,
+    input  logic                  reset_button,
+    output logic                  reset,
+    input  logic                  ch_a,
+    output logic                  encoder_a,
+    input  logic                  ch_b,
+    output logic                  encoder_b,
+    input  logic [kp_width-1:0]   kp_switches,
+    output logic [kp_width-1:0]   kp,
+    input  logic                  display_switch,
+    output logic                  display,
+    input  logic                  arm_switch,
+    output logic                  arm
+);
+
+    // Reset button. The synchronizer has no reset of its own, so it can
     // synchronize the reset button itself.
     synchronizer #(
         .WIDTH(1)
@@ -64,7 +65,7 @@ module synchronizer_subsystem #(kp_width)(
 
     // Gain switches, all four bits in one synchronizer.
     synchronizer #(
-        .WIDTH(kp_width)               // 4 switches
+        .WIDTH(kp_width)              // 4 switches
     ) KP_SYNC (
         .clk(clk),                    // system clock
         .d(kp_switches),              // sw[3:0]

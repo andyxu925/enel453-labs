@@ -21,12 +21,12 @@
 
 
 module downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) (
-    input clk,
-    input reset,
-    input enable,
+    input  clk,
+    input  reset,
+    input  enable,
     output control_tick,
     output pwm_tick
-    );
+);
     // 100 Hz pulse: tells the controller when to take a sample.
     downcounter #(
         .PERIOD(CTRL_PERIOD)          // 1,000,000 cycles = 10 ms
