@@ -24,7 +24,7 @@ module input_conditioning
 );
 
     synchronizer_subsystem #(
-        .KP_WIDTH(KP_WIDTH)
+        .kp_width(KP_WIDTH)
     ) SYNCHRONIZER (
         .clk             (clk),
         .reset_button    (reset_button),
