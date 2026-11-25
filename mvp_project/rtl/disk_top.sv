@@ -159,16 +159,15 @@ module disk_top
     logic signed [POSITION_WIDTH-1:0] position;
     logic signed [POSITION_WIDTH-1:0] setpoint;
     logic signed [COMMAND_WIDTH-1:0]  command;
-    logic        [DEGREES_WIDTH-1:0]  degrees;
-    logic        [15:0]               degrees_bcd;
-
-    logic        [$clog2(COUNTS_PER_REV)-1:0] display_data;
 
     //--------------------------------------------------------------------------
     // Inputs: synchronize the switches, encoder and reset button; debounce the
     // step buttons.
     //--------------------------------------------------------------------------
-    input_conditioning INPUT_CONDITIONING (
+    input_conditioning #(
+        .CLK_FREQ(CLK_FREQ),
+        .DEBOUNCE_MS(DEBOUNCE_MS)
+    ) INPUT_CONDITIONING (
         .clk(clk),
         .reset_button(reset_button),
         .reset(reset),
@@ -178,7 +177,7 @@ module disk_top
         .encoder_b(encoder_b),
         .kp_switches(kp_switches),
         .kp(kp),
-        .display_switch(display),
+        .display_switch(display_switch),
         .display(display),
         .arm_switch(arm_switch),
         .arm(arm),
@@ -192,7 +191,10 @@ module disk_top
     // Clock-enable pulses
     //--------------------------------------------------------------------------
 
-    downcounter_subsystem #(CTRL_PERIOD, PWM_TICK_PERIOD) DOWNCOUNTER (
+    downcounter_subsystem #(
+        .CTRL_PERIOD(CTRL_PERIOD),
+        .PWM_TICK_PERIOD(PWM_TICK_PERIOD)
+    ) DOWNCOUNTER (
         .clk(clk),
         .reset(reset),
         .control_tick(control_tick),
@@ -262,7 +264,7 @@ module disk_top
         .clk(clk),
         .reset(reset),
         .position(position),
-        .display_switch(display_switch),
+        .display_switch(display),
         .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG), .DP(DP),
         .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
     );
