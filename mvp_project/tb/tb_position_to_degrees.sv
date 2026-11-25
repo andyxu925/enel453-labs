@@ -18,7 +18,8 @@ module tb_position_to_degrees;
 
     position_to_degrees DUT (
         .position(position),
-        .degrees(degrees)
+        .display_switch(0),
+        .display_data(degrees)
     );
 
     initial begin
