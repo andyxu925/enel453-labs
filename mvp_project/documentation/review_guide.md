@@ -1,7 +1,5 @@
 # Review Guide
 
----
-
 ## Quick Reference: Constants & Parameters
 | Constant | Value | Where Defined |
 |----------|-------|---------------|
