@@ -53,7 +53,7 @@ module tb_disk_top;
     localparam real PWM_SMOOTHING    = 0.002;   // the winding averages the PWM, s
     localparam int  DELAY_CYCLES     = $rtoi(DELAY * CLK_FREQ);
     localparam int  TOLERANCE        = 8;       // allowed steady-state error, counts
-    localparam int  KP             = 2;
+    localparam int  KP               = 2;
 
     logic                clk              = 0;
     logic                reset_button     = 1;
@@ -66,7 +66,7 @@ module tb_disk_top;
     logic [15:0]         led;
     logic                CA, CB, CC, CD, CE, CF, CG, DP;
     logic                AN1, AN2, AN3, AN4;
-    logic                display_switch = 1'b0;
+    logic                display_switch   = 1'b0;
     int                  errors           = 0;
 
     disk_top #(
