@@ -66,6 +66,7 @@ module tb_disk_top;
     logic [15:0]         led;
     logic                CA, CB, CC, CD, CE, CF, CG, DP;
     logic                AN1, AN2, AN3, AN4;
+    logic                display_switch = 1'b0;
     int                  errors           = 0;
 
     disk_top #(
@@ -88,7 +89,8 @@ module tb_disk_top;
         .led(led),
         .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG),
         .DP(DP),
-        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
+        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4),
+        .display_switch(display_switch)
     );
 
     always #500 clk = ~clk;   // 1 MHz
@@ -158,8 +160,8 @@ module tb_disk_top;
         position = DUT.position;
         degrees  = ((position % COUNTS_PER_REV + COUNTS_PER_REV) % COUNTS_PER_REV)
                    * 360 / COUNTS_PER_REV;
-        shown    = DUT.degrees_bcd[11:8] * 100 + DUT.degrees_bcd[7:4] * 10
-                 + DUT.degrees_bcd[3:0];
+        shown    = DUT.DISPLAY_SUBSYSTEM.display_bcd[11:8] * 100 + DUT.DISPLAY_SUBSYSTEM.display_bcd[7:4] * 10
+                 + DUT.DISPLAY_SUBSYSTEM.display_bcd[3:0];
         if (DUT.setpoint !== POSITION_WIDTH'(target)) begin
             errors++;
             $display("FAIL %s: setpoint = %0d, expected %0d", what, DUT.setpoint, target);
@@ -174,7 +176,7 @@ module tb_disk_top;
             $display("FAIL %s: display shows %0d, expected %0d degrees", what, shown, degrees);
         end
         $display("%-16s setpoint %5d  position %5d  display %04h deg",
-                 what, target, position, DUT.degrees_bcd);
+                 what, target, position, DUT.DISPLAY_SUBSYSTEM.display_bcd);
     endtask
 
     //--------------------------------------------------------------------------
