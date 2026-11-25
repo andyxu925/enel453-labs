@@ -72,6 +72,6 @@ module position_to_degrees
     assign count_times_360 = count_in_rev * DEGREES_WIDTH'(DEGREES_PER_REV); // multiply first
     assign degrees         = DEGREES_WIDTH'(count_times_360 >> REV_BITS);    // then / 2048
 
-    assign display_data = display_switch ? degrees : count_in_rev;
+    assign display_data = display_switch ? count_in_rev : degrees;
 
 endmodule

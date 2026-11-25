@@ -28,7 +28,7 @@ module display_subsystem
     position_to_degrees POSITION_TO_DEGREES (
         .position       (position),
         .display_data   (display_data),
-        .display_switch (!display_switch)
+        .display_switch (display_switch)
     );
 
     bin_to_bcd BIN_TO_BCD (
@@ -38,7 +38,7 @@ module display_subsystem
         .bcd_out  (display_bcd)
     );
 
-    assign digit_blank = !display_switch ? 4'b1000 : 4'b0000;
+    assign digit_blank = display_switch ? 4'b0000 : 4'b1000;
 
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk            (clk),
