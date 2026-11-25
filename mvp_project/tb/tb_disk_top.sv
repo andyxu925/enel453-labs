@@ -66,6 +66,7 @@ module tb_disk_top;
     logic [15:0]         led;
     logic                CA, CB, CC, CD, CE, CF, CG, DP;
     logic                AN1, AN2, AN3, AN4;
+    logic                display_switch = 1'b0;
     int                  errors           = 0;
 
     disk_top #(
@@ -88,7 +89,8 @@ module tb_disk_top;
         .led(led),
         .CA(CA), .CB(CB), .CC(CC), .CD(CD), .CE(CE), .CF(CF), .CG(CG),
         .DP(DP),
-        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4)
+        .AN1(AN1), .AN2(AN2), .AN3(AN3), .AN4(AN4),
+        .display_switch(display_switch)
     );
 
     always #500 clk = ~clk;   // 1 MHz
