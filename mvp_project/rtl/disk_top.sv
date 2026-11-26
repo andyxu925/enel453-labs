@@ -190,7 +190,6 @@ module disk_top
     //--------------------------------------------------------------------------
     // Clock-enable pulses
     //--------------------------------------------------------------------------
-
     downcounter_subsystem #(
         .CTRL_PERIOD(CTRL_PERIOD),
         .PWM_TICK_PERIOD(PWM_TICK_PERIOD)
