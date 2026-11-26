@@ -53,7 +53,8 @@ module tb_disk_top;
     localparam real PWM_SMOOTHING    = 0.002;   // the winding averages the PWM, s
     localparam int  DELAY_CYCLES     = $rtoi(DELAY * CLK_FREQ);
     localparam int  TOLERANCE        = 8;       // allowed steady-state error, counts
-    localparam int  KP             = 2;
+    localparam int  KP               = 2;
+    localparam int  REV_BITS         = $clog2(COUNTS_PER_REV);
 
     logic                clk              = 0;
     logic                reset_button     = 1;
@@ -66,7 +67,7 @@ module tb_disk_top;
     logic [15:0]         led;
     logic                CA, CB, CC, CD, CE, CF, CG, DP;
     logic                AN1, AN2, AN3, AN4;
-    logic                display_switch = 1'b0;
+    logic                display_switch   = 1'b0;
     int                  errors           = 0;
 
     disk_top #(
@@ -156,12 +157,15 @@ module tb_disk_top;
     endtask
 
     task automatic check_settled(int target, string what);
-        int position, degrees, shown;
-        position = DUT.position;
-        degrees  = ((position % COUNTS_PER_REV + COUNTS_PER_REV) % COUNTS_PER_REV)
-                   * 360 / COUNTS_PER_REV;
-        shown    = DUT.DISPLAY_SUBSYSTEM.display_bcd[11:8] * 100 + DUT.DISPLAY_SUBSYSTEM.display_bcd[7:4] * 10
-                 + DUT.DISPLAY_SUBSYSTEM.display_bcd[3:0];
+        int position, degrees, count_in_rev, shown;
+        position     = DUT.position;
+        degrees      = ((position % COUNTS_PER_REV + COUNTS_PER_REV) % COUNTS_PER_REV)
+                     * 360 / COUNTS_PER_REV;
+        count_in_rev = position[REV_BITS-1:0];
+        shown        = DUT.DISPLAY_SUBSYSTEM.display_bcd[15:12] * 1000
+                     + DUT.DISPLAY_SUBSYSTEM.display_bcd[11:8]  * 100
+                     + DUT.DISPLAY_SUBSYSTEM.display_bcd[7:4]   * 10
+                     + DUT.DISPLAY_SUBSYSTEM.display_bcd[3:0];
         if (DUT.setpoint !== POSITION_WIDTH'(target)) begin
             errors++;
             $display("FAIL %s: setpoint = %0d, expected %0d", what, DUT.setpoint, target);
@@ -171,12 +175,21 @@ module tb_disk_top;
             $display("FAIL %s: position = %0d, expected %0d +/- %0d",
                      what, position, target, TOLERANCE);
         end
-        if (shown != degrees) begin
-            errors++;
-            $display("FAIL %s: display shows %0d, expected %0d degrees", what, shown, degrees);
+        if (display_switch == 0) begin
+            if (shown != degrees) begin
+                errors++;
+                $display("FAIL %s: display shows %0d, expected %0d degrees", what, shown, degrees);
+            end
+        end else begin
+            if (shown != count_in_rev) begin
+                errors++;
+                $display("FAIL %s: display shows %0d, expected %0d counts", what, shown, count_in_rev);
+            end
         end
-        $display("%-16s setpoint %5d  position %5d  display %04h deg",
-                 what, target, position, DUT.DISPLAY_SUBSYSTEM.display_bcd);
+        // $display("%-16s setpoint %5d  position %5d  display %04h deg",
+        //         what, target, position, DUT.DISPLAY_SUBSYSTEM.display_bcd);
+         $display("%-16s setpoint %5d  position %5d  display %0d %s",
+                 what, target, position, shown, display_switch ? "counts" : "deg");
     endtask
 
     //--------------------------------------------------------------------------
@@ -196,7 +209,7 @@ module tb_disk_top;
     int an4_errors = 0;
 
     always @(posedge clk)
-        if (!reset_button && AN4 === 1'b0 && an4_errors == 0) begin
+        if (!reset_button && AN4 === 1'b0 && an4_errors == 0 && display_switch == 0) begin
             an4_errors++;
             $display("FAIL blanking: AN4 turned on at %t", $time);
         end
@@ -208,6 +221,9 @@ module tb_disk_top;
         wait_seconds(0.001);
         reset_button = 0;
         wait_seconds(0.1);
+
+        display_switch = 0;
+        wait_seconds(0.1);
         check_settled(0, "after reset");
 
         if (led[3:0] !== KP_WIDTH'(KP) || led[15] !== 1'b1) begin
@@ -216,9 +232,16 @@ module tb_disk_top;
         end
 
         peak_position = 0;
+        display_switch = 0;
+        wait_seconds(0.1);
         press_up();
         wait_seconds(1.5);
         check_settled(COUNTS_PER_REV / 4, "+90 deg");
+
+        display_switch = 1;
+        wait_seconds(0.1);
+        check_settled(COUNTS_PER_REV / 4, "512 counts");
+        display_switch = 0;
         // The real rig shows no overshoot at Kp = 2; allow up to 20 counts (3.5 deg).
         $display("%-16s overshoot %0d counts", "+90 deg step", peak_position - COUNTS_PER_REV / 4);
         if (peak_position - COUNTS_PER_REV / 4 > MAX_OVERSHOOT) begin
@@ -227,10 +250,16 @@ module tb_disk_top;
                      peak_position - COUNTS_PER_REV / 4, MAX_OVERSHOOT);
         end
 
+        display_switch = 0;
+        wait_seconds(0.1);
         press_down();
         press_down();
         wait_seconds(1.5);
         check_settled(-(COUNTS_PER_REV / 4), "-90 deg");
+
+        display_switch = 1;
+        wait_seconds(0.1);
+        check_settled(-(COUNTS_PER_REV / 4), "1536 counts");
 
         // Disarmed: the motor must stay off even with a large error.
         arm_switch = 0;
