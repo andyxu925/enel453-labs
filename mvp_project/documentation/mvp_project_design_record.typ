@@ -61,4 +61,13 @@ end
 
 === Step 5
 === Step 6
+All 7 testbenches were simulated and passed. Below are the images for each pass.
+#image("6_1.png")
+#image("6_2.png")
+#image("6_3.png")
+#image("6_4.png")
+#image("6_5.png")
+#image("6_6.png")
+#image("6_7.png")
 === Step 7
+
