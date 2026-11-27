@@ -115,6 +115,18 @@ All 7 testbenches were simulated and passed. Below are the images for each pass.
   image("q15_2.png", width: 70%),
   caption: [Open the PDF Attachments panel to play `q15_2.mp4`],
 )
+#table(
+  columns: (auto, auto, auto), // Column widths: auto, fractional, or fixed (e.g., 2cm)
+  inset: 10pt,                 // Cell padding
+  align: horizon,              // Vertical/horizontal alignment
+  table.header(
+    [*Variable*], [*Value*], [*How We Measured*],
+  ),
+  [$k_u$], [6], [We observed that the $k_p$ value that first resulted in an unsettled state was 6],
+)
+
+
+Questions:
 
 (a) Why does the loop oscillate at high Kp, when the simple
 textbook model says it never should? 
@@ -127,4 +139,4 @@ Project Summary and Timing Requirements:
 #image("timing2.png")
 
 $ 1/(10-0.296) times 10^9 = 103050288.541 $
-The maximum is 103.05 MHz, which meets the timing requirement of 100 MHz. 
+The maximum is 103.05 MHz, which meets the timing requirement of 100 MHz.
