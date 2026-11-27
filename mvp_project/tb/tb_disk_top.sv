@@ -166,9 +166,9 @@ module tb_disk_top;
                      + DUT.DISPLAY_SUBSYSTEM.display_bcd[11:8]  * 100
                      + DUT.DISPLAY_SUBSYSTEM.display_bcd[7:4]   * 10
                      + DUT.DISPLAY_SUBSYSTEM.display_bcd[3:0];
-        if (DUT.setpoint !== POSITION_WIDTH'(target)) begin
+        if (DUT.CONTROL_LOOP_SUBSYSTEM.setpoint !== POSITION_WIDTH'(target)) begin
             errors++;
-            $display("FAIL %s: setpoint = %0d, expected %0d", what, DUT.setpoint, target);
+            $display("FAIL %s: setpoint = %0d, expected %0d", what, DUT.CONTROL_LOOP_SUBSYSTEM.setpoint, target);
         end
         if (position < target - TOLERANCE || position > target + TOLERANCE) begin
             errors++;
