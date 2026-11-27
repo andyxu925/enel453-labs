@@ -71,3 +71,47 @@ All 7 testbenches were simulated and passed. Below are the images for each pass.
 #image("6_7.png")
 === Step 7
 
+=== Step 9
+// Attaches the video inside the PDF file itself
+#pdf.attach("q9.mp4", description: "Demo Video")
+
+// Visual placeholder in the document text
+#figure(
+  image("q9.png", width: 70%),
+  caption: [Open the PDF Attachments panel to play `q9.mp4`],
+)
+=== Step 11
+// Attaches the video inside the PDF file itself
+#pdf.attach("q11.mp4", description: "Demo Video")
+
+// Visual placeholder in the document text
+#figure(
+  image("q11.png", width: 70%),
+  caption: [Open the PDF Attachments panel to play `q11.mp4`],
+)
+=== Step 12
+// Attaches the video inside the PDF file itself
+#pdf.attach("q12.mp4", description: "Demo Video")
+
+// Visual placeholder in the document text
+#figure(
+  image("q12.png", width: 70%),
+  caption: [Open the PDF Attachments panel to play `q12.mp4`],
+)
+=== Step 15
+// Attaches the video inside the PDF file itself
+#pdf.attach("q15_1.mp4", description: "Demo Video")
+
+// Visual placeholder in the document text
+#figure(
+  image("q15_1.png", width: 70%),
+  caption: [Open the PDF Attachments panel to play `q15_1.mp4`],
+)
+// Attaches the video inside the PDF file itself
+#pdf.attach("q15_2.mp4", description: "Demo Video")
+
+// Visual placeholder in the document text
+#figure(
+  image("q15_2.png", width: 70%),
+  caption: [Open the PDF Attachments panel to play `q15_2.mp4`],
+)
