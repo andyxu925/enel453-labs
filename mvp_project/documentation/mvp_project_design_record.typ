@@ -115,3 +115,16 @@ All 7 testbenches were simulated and passed. Below are the images for each pass.
   image("q15_2.png", width: 70%),
   caption: [Open the PDF Attachments panel to play `q15_2.mp4`],
 )
+
+(a) Why does the loop oscillate at high Kp, when the simple
+textbook model says it never should? 
+
+(b) Why does the disk sometimes stop short of the setpoint at
+low Kp?
+
+Project Summary and Timing Requirements:
+#image("timing1.png")
+#image("timing2.png")
+
+$ 1/(10-0.296) times 10^9 = 103050288.541 $
+The maximum is 103.05 MHz, which meets the timing requirement of 100 MHz. 
