@@ -63,7 +63,6 @@ module display_switch
 );
 
     localparam int REV_BITS     = $clog2(COUNTS_PER_REV);    // 11 bits count 0..2047
-    localparam int SCALED_WIDTH = REV_BITS + DEGREES_WIDTH;  // 11 + 9 = 20 bits
 
     logic [REV_BITS-1:0]     count_in_rev;
 
