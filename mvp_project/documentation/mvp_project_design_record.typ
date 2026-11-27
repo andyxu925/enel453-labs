@@ -60,6 +60,7 @@ end
 #image("4_2.png")
 
 === Step 5
+
 === Step 6
 All 7 testbenches were simulated and passed. Below are the images for each pass.
 #image("6_1.png")
@@ -70,7 +71,26 @@ All 7 testbenches were simulated and passed. Below are the images for each pass.
 #image("6_6.png")
 #image("6_7.png")
 === Step 7
-
+Pre-Modularized:
+#image("pre-mod/btb.png")
+#image("pre-mod/db.png")
+#image("pre-mod/ds.png")
+#image("pre-mod/dt.png")
+#image("pre-mod/md.png")
+#image("pre-mod/pc.png")
+#image("pre-mod/ptd.png")
+#image("pre-mod/qd.png")
+#image("pre-mod/rtl.png")
+Post-Modularized:
+#image("post-mod/btb.png")
+#image("post-mod/db.png")
+#image("post-mod/ds.png")
+#image("post-mod/dt.png")
+#image("post-mod/md.png")
+#image("post-mod/pc.png")
+#image("post-mod/ptd.png")
+#image("post-mod/qd.png")
+#image("post-mod/rtl.png")
 === Step 9
 // Attaches the video inside the PDF file itself
 #pdf.attach("q9.mp4", description: "Demo Video")
