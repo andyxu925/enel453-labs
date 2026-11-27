@@ -66,7 +66,7 @@ module position_to_degrees
     logic [REV_BITS-1:0]     count_in_rev;
     logic [SCALED_WIDTH-1:0] count_times_360;
 
-    assign count_in_rev    = position[REV_BITS-1:0];                       // modulo 2048
+    assign count_in_rev    = position[REV_BITS-1:0];                         // modulo 2048
     assign count_times_360 = count_in_rev * DEGREES_WIDTH'(DEGREES_PER_REV); // multiply first
     assign degrees         = DEGREES_WIDTH'(count_times_360 >> REV_BITS);    // then / 2048
 
