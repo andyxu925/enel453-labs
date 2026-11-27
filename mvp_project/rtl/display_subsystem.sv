@@ -36,7 +36,7 @@ module display_subsystem
         .degrees        (degrees),
         .display_switch (display_switch),
         .display_data   (display_data),
-        .display_blank  (digit_blank)
+        .digit_blank  (digit_blank)
     );
 
     bin_to_bcd BIN_TO_BCD (
