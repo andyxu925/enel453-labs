@@ -62,6 +62,7 @@ At the start of the plot reset is high and sets position to 0000. Once reset dro
 
 Caption: tb_quad_decoder waveform showing reset clearing position to 0000, a and b counting up to 000a (10), and then reversing down through 0000 into ffff, fffe, fffd, and fffc.
 === Step 5
+```
 `timescale 1ns / 1ps
 //==============================================================================
 // Module: display_switch
@@ -216,47 +217,48 @@ Post-Modularized:
 #image("post-mod/rtl.png")
 === Step 9
 // Attaches the video inside the PDF file itself
-#pdf.attach("q9.mp4", description: "Demo Video")
+// #pdf.attach("q9.mp4", description: "Demo Video")
 
 // Visual placeholder in the document text
 #figure(
   image("q9.png", width: 70%),
-  caption: [Open the PDF Attachments panel to play `q9.mp4`],
+  caption: [Open the videos in the link: https://uofc-my.sharepoint.com/:f:/g/personal/andy_xu1_ucalgary_ca/IgBAwqyjStEHT6WBtRHStwbdATNi5jZyd1-RutAVf6NxiQg?e=Xt4LEI],
 )
 === Step 11
 // Attaches the video inside the PDF file itself
-#pdf.attach("q11.mp4", description: "Demo Video")
+// #pdf.attach("q11.mp4", description: "Demo Video")
 
 // Visual placeholder in the document text
 #figure(
   image("q11.png", width: 70%),
-  caption: [Open the PDF Attachments panel to play `q11.mp4`],
+  caption: [Open the videos in the link: https://uofc-my.sharepoint.com/:f:/g/personal/andy_xu1_ucalgary_ca/IgBAwqyjStEHT6WBtRHStwbdATNi5jZyd1-RutAVf6NxiQg?e=Xt4LEI],
 )
+
 === Step 12
 // Attaches the video inside the PDF file itself
-#pdf.attach("q12.mp4", description: "Demo Video")
+// #pdf.attach("q12.mp4", description: "Demo Video")
 
 // Visual placeholder in the document text
 #figure(
   image("q12.png", width: 70%),
-  caption: [Open the PDF Attachments panel to play `q12.mp4`],
+  caption: [Open the videos in the link: https://uofc-my.sharepoint.com/:f:/g/personal/andy_xu1_ucalgary_ca/IgBAwqyjStEHT6WBtRHStwbdATNi5jZyd1-RutAVf6NxiQg?e=Xt4LEI],
 )
 === Step 15
 // Attaches the video inside the PDF file itself
-#pdf.attach("q15_1.mp4", description: "Demo Video")
+// #pdf.attach("q15_1.mp4", description: "Demo Video")
 
 // Visual placeholder in the document text
 #figure(
   image("q15_1.png", width: 70%),
-  caption: [Open the PDF Attachments panel to play `q15_1.mp4`],
+  caption: [Open the videos in the link: https://uofc-my.sharepoint.com/:f:/g/personal/andy_xu1_ucalgary_ca/IgBAwqyjStEHT6WBtRHStwbdATNi5jZyd1-RutAVf6NxiQg?e=Xt4LEI],
 )
 // Attaches the video inside the PDF file itself
-#pdf.attach("q15_2.mp4", description: "Demo Video")
+// #pdf.attach("q15_2.mp4", description: "Demo Video")
 
 // Visual placeholder in the document text
 #figure(
   image("q15_2.png", width: 70%),
-  caption: [Open the PDF Attachments panel to play `q15_2.mp4`],
+  caption: [Open the videos in the link: https://uofc-my.sharepoint.com/:f:/g/personal/andy_xu1_ucalgary_ca/IgBAwqyjStEHT6WBtRHStwbdATNi5jZyd1-RutAVf6NxiQg?e=Xt4LEI],
 )
 Disturbance test:
 No it does not return exactly to the setpoint because it is a proportional controller that is dependent on the position error. As the disk approaches the setpoint, the error becomes smaller and the PWM reduces and cannot overcome the friction of the disk. At $k_p$ = 1, the disk stops a few degrees short, when increased to 2 it gets better, and generally the increase in $k_p$ will reduce error. 
