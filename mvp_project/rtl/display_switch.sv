@@ -58,7 +58,8 @@ module display_switch
     input  logic signed [POSITION_WIDTH-1:0] position,
     input  logic        [DEGREES_WIDTH-1:0]  degrees,
     input  logic                             display_switch,
-    output logic        [DEGREES_WIDTH-1:0]  display_data
+    output logic        [DEGREES_WIDTH-1:0]  display_data,
+    output logic        [3:0]                digit_blank
 );
 
     localparam int REV_BITS     = $clog2(COUNTS_PER_REV);    // 11 bits count 0..2047
@@ -66,7 +67,8 @@ module display_switch
 
     logic [REV_BITS-1:0]     count_in_rev;
 
-    assign count_in_rev = position[REV_BITS-1:0];                       // modulo 2048
+    assign count_in_rev = position[REV_BITS-1:0];                  // modulo 2048
     assign display_data = display_switch ? count_in_rev : degrees;
+    assign digit_blank  = display_switch ? 4'b0000 : 4'b1000;
 
 endmodule
