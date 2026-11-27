@@ -21,14 +21,22 @@ module display_subsystem
 
     localparam int REV_BITS = $clog2(COUNTS_PER_REV);
 
-    logic [REV_BITS-1:0] display_data;
-    logic [15:0]         display_bcd;
-    logic [3:0]          digit_blank;
+    logic [DEGREES_WIDTH-1:0] degrees;
+    logic [REV_BITS-1:0]      display_data;
+    logic [15:0]              display_bcd;
+    logic [3:0]               digit_blank;
 
     position_to_degrees POSITION_TO_DEGREES (
         .position       (position),
+        .degrees        (degrees)
+    );
+
+    display_switch DISPLAY_SWITCH (
+        .position       (position),
+        .degrees        (degrees),
+        .display_switch (display_switch),
         .display_data   (display_data),
-        .display_switch (display_switch)
+        .display_blank  (digit_blank)
     );
 
     bin_to_bcd BIN_TO_BCD (
@@ -37,8 +45,6 @@ module display_subsystem
         .bin_in   (16'(display_data)),
         .bcd_out  (display_bcd)
     );
-
-    assign digit_blank = display_switch ? 4'b0000 : 4'b1000;
 
     seven_segment_display_subsystem SEVEN_SEGMENT_DISPLAY (
         .clk            (clk),
