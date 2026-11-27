@@ -55,11 +55,11 @@
 module display_switch
     import disk_pkg::*;
 (
-    input  logic signed [POSITION_WIDTH-1:0] position,
-    input  logic        [DEGREES_WIDTH-1:0]  degrees,
-    input  logic                             display_switch,
-    output logic        [DEGREES_WIDTH-1:0]  display_data,
-    output logic        [3:0]                digit_blank
+    input  logic signed [POSITION_WIDTH-1:0]            position,
+    input  logic        [DEGREES_WIDTH-1:0]             degrees,
+    input  logic                                        display_switch,
+    output logic        [$clog2(COUNTS_PER_REV)-1:0]    display_data,
+    output logic        [3:0]                           digit_blank
 );
 
     localparam int REV_BITS     = $clog2(COUNTS_PER_REV);    // 11 bits count 0..2047
